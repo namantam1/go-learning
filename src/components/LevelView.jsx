@@ -98,15 +98,12 @@ function LevelView() {
       if (!mainFile) {
         throw new Error('No main file found');
       }
-
       const result = await submitCode(mainFile.content);
-      
+
       if (result.success) {
         setOutput(result.output);
-        const isCorrect = Object.entries(files).every(([path, content]) => 
-          level.solution[path] && content.content.trim() === level.solution[path].trim()
-        );
-        if (isCorrect) {
+        const expectedOutput = level.expectedOutput;
+        if (expectedOutput && result.output.trim() === expectedOutput.trim()) {
           setOutput(prev => prev + '\n\nCongratulations! Your solution is correct! 🎉');
           saveCompletedLevel(parseInt(moduleId), parseInt(levelId));
         }
