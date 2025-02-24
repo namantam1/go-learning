@@ -4,6 +4,7 @@ import Editor from '@monaco-editor/react';
 import Split from 'split.js';
 import { submitCode } from '../services/judge';
 import FileExplorer from './FileExplorer';
+import { saveCompletedLevel, saveCodeFiles, getCodeFiles } from '../services/storage';
 
 function LevelView() {
   const { moduleId, levelId } = useParams();
@@ -24,9 +25,11 @@ function LevelView() {
         const foundLevel = data.levels.find(l => l.id === parseInt(levelId));
         setLevel(foundLevel);
         if (foundLevel) {
-          setFiles(foundLevel.files);
+          // Check for saved code in localStorage
+          const savedFiles = getCodeFiles()[levelId];
+          setFiles(savedFiles || foundLevel.files);
           // Select the main file by default
-          const mainFile = Object.entries(foundLevel.files).find(([_, content]) => content.isMain)?.[0];
+          const mainFile = Object.entries(savedFiles || foundLevel.files).find(([_, content]) => content.isMain)?.[0];
           setSelectedFile(mainFile);
         }
       } catch (error) {
@@ -69,17 +72,20 @@ function LevelView() {
   };
 
   const handleCodeChange = (newValue) => {
-    setFiles(prev => ({
-      ...prev,
+    const updatedFiles = {
+      ...files,
       [selectedFile]: {
-        ...prev[selectedFile],
+        ...files[selectedFile],
         content: newValue
       }
-    }));
+    };
+    setFiles(updatedFiles);
+    saveCodeFiles(levelId, updatedFiles);
   };
 
   const handleUpdateFiles = (newFiles) => {
     setFiles(newFiles);
+    saveCodeFiles(levelId, newFiles);
   };
 
   const handleRunCode = async () => {
@@ -102,6 +108,7 @@ function LevelView() {
         );
         if (isCorrect) {
           setOutput(prev => prev + '\n\nCongratulations! Your solution is correct! 🎉');
+          saveCompletedLevel(parseInt(moduleId), parseInt(levelId));
         }
       } else {
         setError(result.error || 'Failed to execute code');
@@ -186,11 +193,11 @@ function LevelView() {
                         Copy Code
                       </button>
                     </div>
-                    <div className="mb-2">
-                      <pre className="bg-gray-800 text-white p-3 rounded-md text-sm overflow-x-auto">
-                        {example.code}
-                      </pre>
-                    </div>
+                      <div className="mb-2">
+                        <pre className="bg-gray-800 text-white p-3 rounded-md text-sm overflow-x-auto">
+                          {example.code}
+                        </pre>
+                      </div>
                     <p className="text-sm text-gray-600">{example.explanation}</p>
                   </div>
                 ))}

@@ -1,14 +1,24 @@
 import { useState, useEffect } from 'react';
+import { getUserProgress } from '../services/storage';
 
 function Profile() {
   const [user, setUser] = useState(null);
+  const [progress, setProgress] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetch('/data/user.json');
         const data = await response.json();
-        setUser(data.user);
+        
+        // Get progress from localStorage
+        const savedProgress = getUserProgress();
+        
+        setUser({
+          ...data.user,
+          progress: savedProgress
+        });
+        setProgress(savedProgress);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -83,11 +93,15 @@ function Profile() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-500">Completed Modules</label>
-              <div className="mt-1 text-2xl font-bold text-go-blue">{user.completedModules}</div>
+              <div className="mt-1 text-2xl font-bold text-go-blue">
+                {progress.filter(p => p.completed === p.total).length}
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-500">Completed Levels</label>
-              <div className="mt-1 text-2xl font-bold text-go-blue">{user.completedLevels}</div>
+              <div className="mt-1 text-2xl font-bold text-go-blue">
+                {progress.reduce((total, p) => total + p.completed, 0)}
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-500">Current Streak</label>
@@ -100,7 +114,7 @@ function Profile() {
         <div className="card md:col-span-3">
           <h2 className="text-2xl font-semibold mb-4">Recent Progress</h2>
           <div className="space-y-4">
-            {user.progress.map((module) => (
+            {progress.map((module) => (
               <div key={module.moduleId} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div>
                   <h3 className="font-semibold">{module.title}</h3>

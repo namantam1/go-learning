@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { getCompletedLevels } from '../services/storage';
 
 function ModuleView() {
   const { moduleId } = useParams();
   const [levels, setLevels] = useState([]);
+  const [completedLevels, setCompletedLevels] = useState([]);
 
   useEffect(() => {
     const fetchLevels = async () => {
@@ -11,6 +13,10 @@ function ModuleView() {
         const response = await fetch('/data/levels.json');
         const data = await response.json();
         setLevels(data.levels);
+        
+        // Get completed levels from localStorage
+        const completed = getCompletedLevels();
+        setCompletedLevels(completed);
       } catch (error) {
         console.error('Error fetching levels:', error);
       }
@@ -18,6 +24,10 @@ function ModuleView() {
 
     fetchLevels();
   }, []);
+
+  const isLevelCompleted = (levelId) => {
+    return completedLevels.includes(`${moduleId}-${levelId}`);
+  };
 
   return (
     <div className="space-y-8">
@@ -32,7 +42,7 @@ function ModuleView() {
             key={level.id}
             to={`/module/${moduleId}/level/${level.id}`}
             className={`card block ${
-              level.completed ? 'border-l-4 border-green-500' : ''
+              isLevelCompleted(level.id) ? 'border-l-4 border-green-500' : ''
             }`}
           >
             <div className="flex justify-between items-center">
@@ -48,7 +58,7 @@ function ModuleView() {
                   </ul>
                 </div>
               </div>
-              {level.completed ? (
+              {isLevelCompleted(level.id) ? (
                 <span className="text-green-500">✓ Completed</span>
               ) : (
                 <span className="text-gray-400">In Progress</span>
