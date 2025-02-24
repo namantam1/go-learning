@@ -14,7 +14,6 @@ function LevelView() {
   const [isRunning, setIsRunning] = useState(false);
   const [error, setError] = useState(null);
   const [showSolution, setShowSolution] = useState(false);
-  const [showExample, setShowExample] = useState(null);
   const splitInitialized = useRef(false);
 
   useEffect(() => {
@@ -130,6 +129,17 @@ function LevelView() {
     );
   }
 
+  // Add a helper function to copy text to the clipboard
+  const copyText = (text) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        console.log('Copied to clipboard');
+      })
+      .catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex items-center space-x-4">
@@ -170,19 +180,17 @@ function LevelView() {
                     <div className="flex justify-between items-center mb-2">
                       <h4 className="font-medium">{example.title}</h4>
                       <button
-                        onClick={() => setShowExample(showExample === index ? null : index)}
+                        onClick={() => copyText(example.code)}
                         className="text-sm text-go-blue hover:text-go-blue-dark"
                       >
-                        {showExample === index ? 'Hide Code' : 'Show Code'}
+                        Copy Code
                       </button>
                     </div>
-                    {showExample === index && (
-                      <div className="mb-2">
-                        <pre className="bg-gray-800 text-white p-3 rounded-md text-sm overflow-x-auto">
-                          {example.code}
-                        </pre>
-                      </div>
-                    )}
+                    <div className="mb-2">
+                      <pre className="bg-gray-800 text-white p-3 rounded-md text-sm overflow-x-auto">
+                        {example.code}
+                      </pre>
+                    </div>
                     <p className="text-sm text-gray-600">{example.explanation}</p>
                   </div>
                 ))}
@@ -195,7 +203,7 @@ function LevelView() {
                     <a
                       href={ref.url}
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                       className="text-go-blue hover:text-go-blue-dark hover:underline"
                     >
                       {ref.title}
@@ -217,7 +225,14 @@ function LevelView() {
               </button>
             </div>
             {showSolution && (
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="relative bg-gray-50 p-4 rounded-lg">
+                <button
+                  onClick={() => copyText(level.solution[selectedFile] || '')}
+                  className="absolute top-2 right-2 text-go-blue hover:text-go-blue-dark"
+                  title="Copy Solution"
+                >
+                  Copy
+                </button>
                 <pre className="whitespace-pre-wrap font-mono text-sm">
                   {level.solution[selectedFile] || 'Select a file to view its solution'}
                 </pre>
