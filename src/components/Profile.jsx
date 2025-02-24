@@ -12,8 +12,9 @@ function Profile() {
         const data = await response.json();
         
         // Get progress from localStorage
-        const savedProgress = getUserProgress();
+        const savedProgress = getUserProgress().filter(p => p.total);
         
+        console.log('savedProgress:', savedProgress);
         setUser({
           ...data.user,
           progress: savedProgress
