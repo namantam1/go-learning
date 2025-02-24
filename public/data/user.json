@@ -1,0 +1,25 @@
+{
+  "user": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "joinDate": "2024-02-01",
+    "completedModules": 1,
+    "completedLevels": 2,
+    "streak": 5,
+    "avatar": null,
+    "progress": [
+      {
+        "moduleId": 1,
+        "title": "Basics of Go",
+        "completed": 2,
+        "total": 5
+      },
+      {
+        "moduleId": 2,
+        "title": "Functions and Methods",
+        "completed": 0,
+        "total": 4
+      }
+    ]
+  }
+}

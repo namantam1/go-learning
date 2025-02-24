@@ -1,0 +1,108 @@
+{
+  "levels": [
+    {
+      "id": 0,
+      "title": "Hello, Go!",
+      "description": "Write your first Go program that prints \"Hello, World!\" to the console.",
+      "prerequisites": [
+        "Understanding of what a programming language is",
+        "Basic concept of program output"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Write your code here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}"
+      },
+      "learningMaterials": {
+        "explanation": "In Go, every program starts with a 'package' declaration. The 'main' package is special - it tells Go that this is an executable program. The 'fmt' package provides formatting and printing functions. The 'main()' function is the entry point of your program.",
+        "examples": [
+          {
+            "title": "Basic Print",
+            "code": "fmt.Println(\"Hello!\")",
+            "explanation": "Prints 'Hello!' and adds a new line"
+          },
+          {
+            "title": "Print with Format",
+            "code": "name := \"Go\"\nfmt.Printf(\"Hello, %s!\", name)",
+            "explanation": "Uses format specifier %s to insert a string variable"
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Documentation - fmt package",
+            "url": "https://golang.org/pkg/fmt/"
+          },
+          {
+            "title": "Go by Example - Hello World",
+            "url": "https://gobyexample.com/hello-world"
+          },
+          {
+            "title": "Tour of Go - Basics",
+            "url": "https://tour.golang.org/basics/1"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "title": "Multi-file Project",
+      "description": "Create a simple calculator package with basic arithmetic operations.",
+      "prerequisites": [
+        "Understanding of functions and packages in Go",
+        "Basic arithmetic operations"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n    \"fmt\"\n    \"./calculator\"\n)\n\nfunc main() {\n    // Use the calculator package here\n}",
+          "isMain": true
+        },
+        "calculator/calculator.go": {
+          "content": "package calculator\n\n// Add returns the sum of two numbers\nfunc Add(a, b float64) float64 {\n    // Implement the addition function\n}\n\n// Subtract returns the difference of two numbers\nfunc Subtract(a, b float64) float64 {\n    // Implement the subtraction function\n}",
+          "isMain": false
+        },
+        "calculator/calculator_test.go": {
+          "content": "package calculator\n\nimport \"testing\"\n\nfunc TestAdd(t *testing.T) {\n    // Write test cases for the Add function\n}\n\nfunc TestSubtract(t *testing.T) {\n    // Write test cases for the Subtract function\n}",
+          "isMain": false
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n    \"fmt\"\n    \"./calculator\"\n)\n\nfunc main() {\n    result1 := calculator.Add(10, 5)\n    result2 := calculator.Subtract(10, 5)\n    \n    fmt.Printf(\"10 + 5 = %.2f\\n\", result1)\n    fmt.Printf(\"10 - 5 = %.2f\\n\", result2)\n}",
+        "calculator/calculator.go": "package calculator\n\nfunc Add(a, b float64) float64 {\n    return a + b\n}\n\nfunc Subtract(a, b float64) float64 {\n    return a - b\n}",
+        "calculator/calculator_test.go": "package calculator\n\nimport \"testing\"\n\nfunc TestAdd(t *testing.T) {\n    result := Add(10, 5)\n    expected := 15.0\n    if result != expected {\n        t.Errorf(\"Add(10, 5) = %.2f; expected %.2f\", result, expected)\n    }\n}\n\nfunc TestSubtract(t *testing.T) {\n    result := Subtract(10, 5)\n    expected := 5.0\n    if result != expected {\n        t.Errorf(\"Subtract(10, 5) = %.2f; expected %.2f\", result, expected)\n    }\n}"
+      },
+      "learningMaterials": {
+        "explanation": "This example demonstrates how to create a multi-file Go project with a custom package. The calculator package provides basic arithmetic operations, and we include unit tests to ensure the functions work correctly.",
+        "examples": [
+          {
+            "title": "Package Structure",
+            "code": "myproject/\n  ├── main.go\n  └── calculator/\n      ├── calculator.go\n      └── calculator_test.go",
+            "explanation": "Standard Go project layout with main package and a sub-package"
+          },
+          {
+            "title": "Package Import",
+            "code": "import (\n    \"./calculator\"  // Local package\n    \"fmt\"         // Standard library\n)",
+            "explanation": "How to import local and standard packages"
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Packages Documentation",
+            "url": "https://golang.org/pkg/"
+          },
+          {
+            "title": "Go Testing Package",
+            "url": "https://golang.org/pkg/testing/"
+          },
+          {
+            "title": "Project Layout",
+            "url": "https://github.com/golang-standards/project-layout"
+          }
+        ]
+      }
+    }
+  ]
+}

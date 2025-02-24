@@ -1,0 +1,25 @@
+{
+  "modules": [
+    {
+      "id": 1,
+      "title": "Basics of Go",
+      "description": "Learn the fundamental concepts of Go programming",
+      "levels": 16,
+      "completed": 0
+    },
+    {
+      "id": 2,
+      "title": "Advanced Go",
+      "description": "Learn advanced concepts of Go programming",
+      "levels": 0,
+      "completed": 0
+    },
+    {
+      "id": 3,
+      "title": "Basic Projects",
+      "description": "Build basic projects using Go",
+      "levels": 0,
+      "completed": 0
+    }
+  ]
+}
