@@ -1,706 +1,722 @@
 {
   "levels": [
     {
-        "id": 0,
-        "title": "Hello, Go!",
-        "description": "Write your first Go program that prints \"Hello, World!\" to the console.",
-        "prerequisites": [
-            "Understanding of what a programming language is",
-            "Basic concept of program output"
+      "id": 0,
+      "title": "Hello, Go!",
+      "description": "Write your first Go program that prints \"Hello, World!\" to the console.",
+      "prerequisites": [
+        "Understanding of what a programming language is",
+        "Basic concept of program output"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Write your code here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}"
+      },
+      "learningMaterials": {
+        "explanation": "In Go, every program starts with a 'package' declaration. The 'main' package is special - it tells Go that this is an executable program. The 'fmt' package provides formatting and printing functions. The 'main()' function is the entry point of your program.",
+        "examples": [
+          {
+            "title": "Basic Print",
+            "code": "fmt.Println(\"Hello!\")",
+            "explanation": "Prints 'Hello!' and adds a new line"
+          },
+          {
+            "title": "Print with Format",
+            "code": "name := \"Go\"\nfmt.Printf(\"Hello, %s!\", name)",
+            "explanation": "Uses format specifier %s to insert a string variable"
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Write your code here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}"
-        },
-        "learningMaterials": {
-            "explanation": "In Go, every program starts with a 'package' declaration. The 'main' package is special - it tells Go that this is an executable program. The 'fmt' package provides formatting and printing functions. The 'main()' function is the entry point of your program.",
-            "examples": [
-                {
-                    "title": "Basic Print",
-                    "code": "fmt.Println(\"Hello!\")",
-                    "explanation": "Prints 'Hello!' and adds a new line"
-                },
-                {
-                    "title": "Print with Format",
-                    "code": "name := \"Go\"\nfmt.Printf(\"Hello, %s!\", name)",
-                    "explanation": "Uses format specifier %s to insert a string variable"
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go Documentation - fmt package",
-                    "url": "https://golang.org/pkg/fmt/"
-                },
-                {
-                    "title": "Go by Example - Hello World",
-                    "url": "https://gobyexample.com/hello-world"
-                },
-                {
-                    "title": "Tour of Go - Basics",
-                    "url": "https://tour.golang.org/basics/1"
-                }
-            ]
-        },
-        "expectedOutput": "Hello, World!"
+        "references": [
+          {
+            "title": "Go Documentation - fmt package",
+            "url": "https://golang.org/pkg/fmt/"
+          },
+          {
+            "title": "Go by Example - Hello World",
+            "url": "https://gobyexample.com/hello-world"
+          },
+          {
+            "title": "Tour of Go - Basics",
+            "url": "https://tour.golang.org/basics/1"
+          }
+        ]
+      },
+      "problem": "Write a Go program that prints 'Hello, World!' to the console.",
+      "expectedOutput": "Hello, World!"
     },
     {
-        "id": 1,
-        "title": "Variables and Data Types",
-        "description": "Learn how to declare variables and understand the basic data types in Go.",
-        "prerequisites": [
-            "Hello, Go!"
+      "id": 1,
+      "title": "Variables and Data Types",
+      "description": "Learn how to declare variables and understand the basic data types in Go.",
+      "prerequisites": [
+        "Hello, Go!"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Declare variables here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var age int = 30\n    var name string = \"Alice\"\n    height := 5.9\n    isStudent := true\n    fmt.Printf(\"Name: %s, Age: %d, Height: %.1f, Student: %t\\n\", name, age, height, isStudent)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Go is statically typed, meaning each variable has a specific type determined at compile-time. Variables can be declared using the 'var' keyword or using shorthand notation ':='. Basic data types include int, float64, string, and bool.",
+        "examples": [
+          {
+            "title": "Variable Declaration with var",
+            "code": "var count int\ncount = 10",
+            "explanation": "Declares an integer variable 'count' and assigns it the value 10"
+          },
+          {
+            "title": "Shorthand Variable Declaration",
+            "code": "message := \"Hello, Go!\"",
+            "explanation": "Declares and initializes a string variable 'message'"
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Declare variables here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var age int = 30\n    var name string = \"Alice\"\n    height := 5.9\n    isStudent := true\n    fmt.Printf(\"Name: %s, Age: %d, Height: %.1f, Student: %t\\n\", name, age, height, isStudent)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Go is statically typed, meaning each variable has a specific type determined at compile-time. Variables can be declared using the 'var' keyword or using shorthand notation ':='. Basic data types include int, float64, string, and bool.",
-            "examples": [
-                {
-                    "title": "Variable Declaration with var",
-                    "code": "var count int\ncount = 10",
-                    "explanation": "Declares an integer variable 'count' and assigns it the value 10"
-                },
-                {
-                    "title": "Shorthand Variable Declaration",
-                    "code": "message := \"Hello, Go!\"",
-                    "explanation": "Declares and initializes a string variable 'message'"
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Variables",
-                    "url": "https://gobyexample.com/variables"
-                },
-                {
-                    "title": "Tour of Go - Variables",
-                    "url": "https://tour.golang.org/basics/8"
-                },
-                {
-                    "title": "Go Documentation - Variables",
-                    "url": "https://golang.org/doc/effective_go.html#variables"
-                }
-            ]
-        },
-        "expectedOutput": "Name: Alice, Age: 30, Height: 5.9, Student: true"
+        "references": [
+          {
+            "title": "Go by Example - Variables",
+            "url": "https://gobyexample.com/variables"
+          },
+          {
+            "title": "Tour of Go - Variables",
+            "url": "https://tour.golang.org/basics/8"
+          },
+          {
+            "title": "Go Documentation - Variables",
+            "url": "https://golang.org/doc/effective_go.html#variables"
+          }
+        ]
+      },
+      "problem": "Declare variables of different data types (int, string, float, bool) and print them in a formatted string.",
+      "expectedOutput": "Name: Alice, Age: 30, Height: 5.9, Student: true"
     },
     {
-        "id": 2,
-        "title": "Constants",
-        "description": "Understand how to define and use constants in Go.",
-        "prerequisites": [
-            "Variables and Data Types"
+      "id": 2,
+      "title": "Constants",
+      "description": "Understand how to define and use constants in Go.",
+      "prerequisites": [
+        "Variables and Data Types"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define constants here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nconst Pi = 3.14159\nconst Greeting = \"Hello, Go!\"\n\nfunc main() {\n    fmt.Println(\"Value of Pi:\", Pi)\n    fmt.Println(Greeting)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Constants in Go are immutable values known at compile time. They are declared using the 'const' keyword and must be assigned a value at the time of declaration. Constants can be of basic data types like int, float64, string, and bool.",
+        "examples": [
+          {
+            "title": "Integer Constant",
+            "code": "const DaysInWeek = 7",
+            "explanation": "Defines a constant integer representing the number of days in a week"
+          },
+          {
+            "title": "String Constant",
+            "code": "const WelcomeMessage = \"Welcome to Go!\"",
+            "explanation": "Defines a constant string with a welcome message"
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define constants here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nconst Pi = 3.14159\nconst Greeting = \"Hello, Go!\"\n\nfunc main() {\n    fmt.Println(\"Value of Pi:\", Pi)\n    fmt.Println(Greeting)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Constants in Go are immutable values known at compile time. They are declared using the 'const' keyword and must be assigned a value at the time of declaration. Constants can be of basic data types like int, float64, string, and bool.",
-            "examples": [
-                {
-                    "title": "Integer Constant",
-                    "code": "const DaysInWeek = 7",
-                    "explanation": "Defines a constant integer representing the number of days in a week"
-                },
-                {
-                    "title": "String Constant",
-                    "code": "const WelcomeMessage = \"Welcome to Go!\"",
-                    "explanation": "Defines a constant string with a welcome message"
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Constants",
-                    "url": "https://gobyexample.com/constants"
-                },
-                {
-                    "title": "Tour of Go - Constants",
-                    "url": "https://tour.golang.org/basics/15"
-                },
-                {
-                    "title": "Go Documentation - Constants",
-                    "url": "https://golang.org/ref/spec#Constants"
-                }
-            ]
-        },
-        "expectedOutput": "Value of Pi: 3.14159\nHello, Go!"
+        "references": [
+          {
+            "title": "Go by Example - Constants",
+            "url": "https://gobyexample.com/constants"
+          },
+          {
+            "title": "Tour of Go - Constants",
+            "url": "https://tour.golang.org/basics/15"
+          },
+          {
+            "title": "Go Documentation - Constants",
+            "url": "https://golang.org/ref/spec#Constants"
+          }
+        ]
+      },
+      "problem": "Define constants for Pi and a greeting message and print them to the console.",
+      "expectedOutput": "Value of Pi: 3.14159\nHello, Go!"
     },
     {
-        "id": 3,
-        "title": "Basic Arithmetic Operations",
-        "description": "Learn how to perform basic arithmetic operations in Go.",
-        "prerequisites": [
-            "Variables and Data Types"
+      "id": 3,
+      "title": "Basic Arithmetic Operations",
+      "description": "Perform basic arithmetic operations in Go.",
+      "prerequisites": [
+        "Variables and Data Types"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Perform arithmetic operations here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    a := 10\n    b := 3\n    sum := a + b\n    difference := a - b\n    product := a * b\n    quotient := a / b\n    remainder := a % b\n    fmt.Printf(\"Sum: %d\\n\", sum)\n    fmt.Printf(\"Difference: %d\\n\", difference)\n    fmt.Printf(\"Product: %d\\n\", product)\n    fmt.Printf(\"Quotient: %d\\n\", quotient)\n    fmt.Printf(\"Remainder: %d\\n\", remainder)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Go supports basic arithmetic operations such as addition (+), subtraction (-), multiplication (*), division (/), and modulus (%). These operations work with numeric data types.",
+        "examples": [
+          {
+            "title": "Addition Example",
+            "code": "result := 5 + 3",
+            "explanation": "Adds two numbers together."
+          },
+          {
+            "title": "Modulus Example",
+            "code": "remainder := 10 % 3",
+            "explanation": "Calculates the remainder of division."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Perform arithmetic operations here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    a := 10\n    b := 5\n    sum := a + b\n    difference := a - b\n    product := a * b\n    quotient := a / b\n    remainder := a % b\n    fmt.Println(\"Sum:\", sum)\n    fmt.Println(\"Difference:\", difference)\n    fmt.Println(\"Product:\", product)\n    fmt.Println(\"Quotient:\", quotient)\n    fmt.Println(\"Remainder:\", remainder)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Go supports basic arithmetic operations like addition, subtraction, multiplication, division, and modulus. These operations can be performed on integer and floating-point numbers.",
-            "examples": [
-                {
-                    "title": "Addition",
-                    "code": "sum := 10 + 5",
-                    "explanation": "Adds two numbers and stores the result in 'sum'"
-                },
-                {
-                    "title": "Division",
-                    "code": "quotient := 10 / 5",
-                    "explanation": "Divides two numbers and stores the result in 'quotient'"
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Arithmetic",
-                    "url": "https://gobyexample.com/arithmetic"
-                },
-                {
-                    "title": "Tour of Go - Basic Types",
-                    "url": "https://tour.golang.org/basics/14"
-                }
-            ]
-        },
-        "expectedOutput": "Sum: 15\nDifference: 5\nProduct: 50\nQuotient: 2\nRemainder: 0"
+        "references": [
+          {
+            "title": "Go by Example - Arithmetic",
+            "url": "https://gobyexample.com/for"
+          },
+          {
+            "title": "Tour of Go - Expressions",
+            "url": "https://tour.golang.org/basics/4"
+          }
+        ]
+      },
+      "problem": "Perform addition, subtraction, multiplication, division, and modulus on two integers and print the results.",
+      "expectedOutput": "Sum: 13\nDifference: 7\nProduct: 30\nQuotient: 3\nRemainder: 1"
     },
     {
-        "id": 4,
-        "title": "Conditional Statements",
-        "description": "Learn how to use conditional statements (if, else, switch) in Go.",
-        "prerequisites": [
-            "Basic Arithmetic Operations"
+      "id": 4,
+      "title": "Conditional Statements",
+      "description": "Learn how to use conditional statements (if, else, switch) in Go.",
+      "prerequisites": [
+        "Basic Arithmetic Operations"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Implement conditional statements here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    number := 10\n    if number > 0 {\n        fmt.Println(\"Positive Number\")\n    } else if number < 0 {\n        fmt.Println(\"Negative Number\")\n    } else {\n        fmt.Println(\"Zero\")\n    }\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Conditional statements allow programs to make decisions based on conditions. Go provides 'if-else' and 'switch' statements for control flow.",
+        "examples": [
+          {
+            "title": "If-Else Example",
+            "code": "age := 18\nif age >= 18 {\n    fmt.Println(\"Eligible to vote\")\n} else {\n    fmt.Println(\"Not eligible to vote\")\n}",
+            "explanation": "Checks if age is greater than or equal to 18."
+          },
+          {
+            "title": "Switch Statement",
+            "code": "day := 3\nswitch day {\ncase 1:\n    fmt.Println(\"Monday\")\ncase 2:\n    fmt.Println(\"Tuesday\")\ncase 3:\n    fmt.Println(\"Wednesday\")\ndefault:\n    fmt.Println(\"Unknown day\")\n}",
+            "explanation": "Uses switch-case to match different values."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Implement conditional statements here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    number := 10\n    if number > 0 {\n        fmt.Println(\"Positive Number\")\n    } else if number < 0 {\n        fmt.Println(\"Negative Number\")\n    } else {\n        fmt.Println(\"Zero\")\n    }\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Conditional statements allow programs to make decisions based on conditions. Go provides 'if-else' and 'switch' statements for control flow.",
-            "examples": [
-                {
-                    "title": "If-Else Example",
-                    "code": "age := 18\nif age >= 18 {\n    fmt.Println(\"Eligible to vote\")\n} else {\n    fmt.Println(\"Not eligible to vote\")\n}",
-                    "explanation": "Checks if age is greater than or equal to 18."
-                },
-                {
-                    "title": "Switch Statement",
-                    "code": "day := 3\nswitch day {\ncase 1:\n    fmt.Println(\"Monday\")\ncase 2:\n    fmt.Println(\"Tuesday\")\ncase 3:\n    fmt.Println(\"Wednesday\")\ndefault:\n    fmt.Println(\"Unknown day\")\n}",
-                    "explanation": "Uses switch-case to match different values."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - If/Else",
-                    "url": "https://gobyexample.com/if-else"
-                },
-                {
-                    "title": "Go by Example - Switch",
-                    "url": "https://gobyexample.com/switch"
-                }
-            ]
-        },
-        "expectedOutput": "Positive Number"
+        "references": [
+          {
+            "title": "Go by Example - If/Else",
+            "url": "https://gobyexample.com/if-else"
+          },
+          {
+            "title": "Go by Example - Switch",
+            "url": "https://gobyexample.com/switch"
+          }
+        ]
+      },
+      "problem": "Write a Go program that checks if a number is positive, negative, or zero and prints the appropriate message.",
+      "expectedOutput": "Positive Number"
     },
     {
-        "id": 5,
-        "title": "Loops",
-        "description": "Learn how to use loops (for loop) to execute repetitive tasks in Go.",
-        "prerequisites": [
-            "Conditional Statements"
+      "id": 5,
+      "title": "Loops",
+      "description": "Learn how to use loops (for loop) to execute repetitive tasks in Go.",
+      "prerequisites": [
+        "Conditional Statements"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Implement loops here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    for i := 1; i <= 5; i++ {\n        fmt.Println(\"Iteration\", i)\n    }\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Loops allow executing a block of code multiple times. Go only provides a 'for' loop, which can be used in different ways.",
+        "examples": [
+          {
+            "title": "Basic For Loop",
+            "code": "for i := 0; i < 5; i++ {\n    fmt.Println(i)\n}",
+            "explanation": "Prints numbers from 0 to 4."
+          },
+          {
+            "title": "For Loop as While Loop",
+            "code": "i := 0\nfor i < 5 {\n    fmt.Println(i)\n    i++\n}",
+            "explanation": "Simulates a while loop by omitting initialization and post statements."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Implement loops here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    for i := 1; i <= 5; i++ {\n        fmt.Println(\"Iteration\", i)\n    }\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Loops allow executing a block of code multiple times. Go only provides a 'for' loop, which can be used in different ways.",
-            "examples": [
-                {
-                    "title": "Basic For Loop",
-                    "code": "for i := 0; i < 5; i++ {\n    fmt.Println(i)\n}",
-                    "explanation": "Prints numbers from 0 to 4."
-                },
-                {
-                    "title": "For Loop as While Loop",
-                    "code": "i := 0\nfor i < 5 {\n    fmt.Println(i)\n    i++\n}",
-                    "explanation": "Simulates a while loop by omitting initialization and post statements."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Loops",
-                    "url": "https://gobyexample.com/for"
-                },
-                {
-                    "title": "Tour of Go - Loops",
-                    "url": "https://tour.golang.org/flowcontrol/1"
-                }
-            ]
-        },
-        "expectedOutput": "Iteration 1\nIteration 2\nIteration 3\nIteration 4\nIteration 5"
+        "references": [
+          {
+            "title": "Go by Example - Loops",
+            "url": "https://gobyexample.com/for"
+          },
+          {
+            "title": "Tour of Go - Loops",
+            "url": "https://tour.golang.org/flowcontrol/1"
+          }
+        ]
+      },
+      "problem": "Write a Go program that uses a for loop to print iteration numbers from 1 to 5.",
+      "expectedOutput": "Iteration 1\nIteration 2\nIteration 3\nIteration 4\nIteration 5"
     },
     {
-        "id": 6,
-        "title": "Functions",
-        "description": "Learn how to define and use functions in Go.",
-        "prerequisites": [
-            "Loops"
+      "id": 6,
+      "title": "Functions",
+      "description": "Learn how to define and use functions in Go.",
+      "prerequisites": [
+        "Loops"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\n// Define functions here\n\nfunc main() {\n    // Call functions here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc add(a int, b int) int {\n    return a + b\n}\n\nfunc main() {\n    sum := add(5, 3)\n    fmt.Println(\"Sum:\", sum)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Functions help in structuring the code by dividing it into reusable blocks. Functions in Go are defined using the 'func' keyword, followed by the function name, parameters, return type, and body.",
+        "examples": [
+          {
+            "title": "Basic Function",
+            "code": "func greet(name string) {\n    fmt.Println(\"Hello,\", name)\n}",
+            "explanation": "Defines a function that prints a greeting message."
+          },
+          {
+            "title": "Function with Multiple Return Values",
+            "code": "func swap(a, b int) (int, int) {\n    return b, a\n}",
+            "explanation": "Returns two values after swapping."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\n// Define functions here\n\nfunc main() {\n    // Call functions here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc add(a int, b int) int {\n    return a + b\n}\n\nfunc main() {\n    sum := add(5, 3)\n    fmt.Println(\"Sum:\", sum)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Functions help in structuring the code by dividing it into reusable blocks. Functions in Go are defined using the 'func' keyword, followed by the function name, parameters, return type, and body.",
-            "examples": [
-                {
-                    "title": "Basic Function",
-                    "code": "func greet(name string) {\n    fmt.Println(\"Hello,\", name)\n}",
-                    "explanation": "Defines a function that prints a greeting message."
-                },
-                {
-                    "title": "Function with Multiple Return Values",
-                    "code": "func swap(a, b int) (int, int) {\n    return b, a\n}",
-                    "explanation": "Returns two values after swapping."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Functions",
-                    "url": "https://gobyexample.com/functions"
-                },
-                {
-                    "title": "Tour of Go - Functions",
-                    "url": "https://tour.golang.org/basics/11"
-                }
-            ]
-        },
-        "expectedOutput": "Sum: 8"
+        "references": [
+          {
+            "title": "Go by Example - Functions",
+            "url": "https://gobyexample.com/functions"
+          },
+          {
+            "title": "Tour of Go - Functions",
+            "url": "https://tour.golang.org/basics/11"
+          }
+        ]
+      },
+      "problem": "Write a function that adds two integers and returns the result, then call the function and print the sum.",
+      "expectedOutput": "Sum: 8"
     },
     {
-        "id": 7,
-        "title": "Arrays",
-        "description": "Learn how to declare and use arrays in Go.",
-        "prerequisites": [
-            "Functions"
+      "id": 7,
+      "title": "Arrays",
+      "description": "Learn how to declare and use arrays in Go.",
+      "prerequisites": [
+        "Functions"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define arrays here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var numbers [5]int = [5]int{1, 2, 3, 4, 5}\n    fmt.Println(\"Array elements:\", numbers)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Arrays are fixed-size sequences of elements of the same type. They are declared with a specified length.",
+        "examples": [
+          {
+            "title": "Array Declaration",
+            "code": "var arr [3]int",
+            "explanation": "Declares an integer array of size 3."
+          },
+          {
+            "title": "Array Initialization",
+            "code": "arr := [3]int{1, 2, 3}",
+            "explanation": "Initializes an array with specific values."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define arrays here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    var numbers [5]int = [5]int{1, 2, 3, 4, 5}\n    fmt.Println(\"Array elements:\", numbers)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Arrays are fixed-size sequences of elements of the same type. They are declared with a specified length.",
-            "examples": [
-                {
-                    "title": "Array Declaration",
-                    "code": "var arr [3]int",
-                    "explanation": "Declares an integer array of size 3."
-                },
-                {
-                    "title": "Array Initialization",
-                    "code": "arr := [3]int{1, 2, 3}",
-                    "explanation": "Initializes an array with specific values."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Arrays",
-                    "url": "https://gobyexample.com/arrays"
-                },
-                {
-                    "title": "Tour of Go - Arrays",
-                    "url": "https://tour.golang.org/moretypes/6"
-                }
-            ]
-        },
-        "expectedOutput": "Array elements: [1 2 3 4 5]"
+        "references": [
+          {
+            "title": "Go by Example - Arrays",
+            "url": "https://gobyexample.com/arrays"
+          },
+          {
+            "title": "Tour of Go - Arrays",
+            "url": "https://tour.golang.org/moretypes/6"
+          }
+        ]
+      },
+      "problem": "Declare an array of 5 integers and print the array.",
+      "expectedOutput": "Array elements: [1 2 3 4 5]"
     },
     {
-        "id": 8,
-        "title": "Slices",
-        "description": "Understand how slices work and how they differ from arrays in Go.",
-        "prerequisites": [
-            "Arrays"
+      "id": 8,
+      "title": "Slices",
+      "description": "Understand how slices work and how they differ from arrays in Go.",
+      "prerequisites": [
+        "Arrays"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define slices here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    numbers := []int{1, 2, 3, 4, 5}\n    fmt.Println(\"Slice elements:\", numbers)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Slices are dynamic and more flexible than arrays. Unlike arrays, they do not have a fixed size and can be resized using the append function.",
+        "examples": [
+          {
+            "title": "Slice Declaration",
+            "code": "var s []int",
+            "explanation": "Declares an empty slice of integers."
+          },
+          {
+            "title": "Appending to a Slice",
+            "code": "s = append(s, 1, 2, 3)",
+            "explanation": "Appends elements to a slice dynamically."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define slices here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    numbers := []int{1, 2, 3, 4, 5}\n    fmt.Println(\"Slice elements:\", numbers)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Slices are dynamic and more flexible than arrays. Unlike arrays, they do not have a fixed size and can be resized using the append function.",
-            "examples": [
-                {
-                    "title": "Slice Declaration",
-                    "code": "var s []int",
-                    "explanation": "Declares an empty slice of integers."
-                },
-                {
-                    "title": "Appending to a Slice",
-                    "code": "s = append(s, 1, 2, 3)",
-                    "explanation": "Appends elements to a slice dynamically."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Slices",
-                    "url": "https://gobyexample.com/slices"
-                },
-                {
-                    "title": "Tour of Go - Slices",
-                    "url": "https://tour.golang.org/moretypes/7"
-                }
-            ]
-        },
-        "expectedOutput": "Slice elements: [1 2 3 4 5]"
+        "references": [
+          {
+            "title": "Go by Example - Slices",
+            "url": "https://gobyexample.com/slices"
+          },
+          {
+            "title": "Tour of Go - Slices",
+            "url": "https://tour.golang.org/moretypes/7"
+          }
+        ]
+      },
+      "problem": "Create a slice of integers, initialize it with values, and print the slice.",
+      "expectedOutput": "Slice elements: [1 2 3 4 5]"
     },
     {
-        "id": 9,
-        "title": "Maps",
-        "description": "Learn how to use maps (key-value pairs) in Go.",
-        "prerequisites": [
-            "Slices"
+      "id": 9,
+      "title": "Maps",
+      "description": "Learn how to use maps (key-value pairs) in Go.",
+      "prerequisites": [
+        "Slices"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define maps here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    studentGrades := map[string]int{\"Alice\": 90, \"Bob\": 85}\n    fmt.Println(\"Alice's Grade:\", studentGrades[\"Alice\"])\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Maps in Go are collections of key-value pairs. They are similar to dictionaries in other languages and are declared using the 'map' keyword.",
+        "examples": [
+          {
+            "title": "Declaring a Map",
+            "code": "var myMap map[string]int",
+            "explanation": "Declares a map where keys are strings and values are integers."
+          },
+          {
+            "title": "Initializing a Map",
+            "code": "myMap := map[string]int{\"one\": 1, \"two\": 2}",
+            "explanation": "Creates a map with predefined key-value pairs."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define maps here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    studentGrades := map[string]int{\"Alice\": 90, \"Bob\": 85}\n    fmt.Println(\"Alice's Grade:\", studentGrades[\"Alice\"])\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Maps in Go are collections of key-value pairs. They are similar to dictionaries in other languages and are declared using the 'map' keyword.",
-            "examples": [
-                {
-                    "title": "Declaring a Map",
-                    "code": "var myMap map[string]int",
-                    "explanation": "Declares a map where keys are strings and values are integers."
-                },
-                {
-                    "title": "Initializing a Map",
-                    "code": "myMap := map[string]int{\"one\": 1, \"two\": 2}",
-                    "explanation": "Creates a map with predefined key-value pairs."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Maps",
-                    "url": "https://gobyexample.com/maps"
-                },
-                {
-                    "title": "Tour of Go - Maps",
-                    "url": "https://tour.golang.org/moretypes/19"
-                }
-            ]
-        },
-        "expectedOutput": "Alice's Grade: 90"
+        "references": [
+          {
+            "title": "Go by Example - Maps",
+            "url": "https://gobyexample.com/maps"
+          },
+          {
+            "title": "Tour of Go - Maps",
+            "url": "https://tour.golang.org/moretypes/19"
+          }
+        ]
+      },
+      "problem": "Create a map with student names as keys and grades as values, then print a specific student's grade.",
+      "expectedOutput": "Alice's Grade: 90"
     },
     {
-        "id": 10,
-        "title": "Pointers",
-        "description": "Understand how pointers work in Go and how to use them effectively.",
-        "prerequisites": [
-            "Functions"
+      "id": 10,
+      "title": "Pointers",
+      "description": "Understand how pointers work in Go and how to use them effectively.",
+      "prerequisites": [
+        "Functions"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Work with pointers here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    a := 10\n    ptr := &a\n    fmt.Println(\"Value of a:\", a)\n    fmt.Println(\"Memory address of a:\", ptr)\n    fmt.Println(\"Value at pointer:\", *ptr)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Pointers store memory addresses of variables. They allow efficient memory manipulation and function argument passing by reference.",
+        "examples": [
+          {
+            "title": "Pointer Declaration",
+            "code": "var ptr *int",
+            "explanation": "Declares a pointer to an integer."
+          },
+          {
+            "title": "Using Pointers",
+            "code": "x := 5\nptr := &x\nfmt.Println(*ptr)",
+            "explanation": "Stores the address of x in ptr and prints its value using dereferencing."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Work with pointers here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    a := 10\n    ptr := &a\n    fmt.Println(\"Value of a:\", a)\n    fmt.Println(\"Memory address of a:\", ptr)\n    fmt.Println(\"Value at pointer:\", *ptr)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Pointers store memory addresses of variables. They allow efficient memory manipulation and function argument passing by reference.",
-            "examples": [
-                {
-                    "title": "Pointer Declaration",
-                    "code": "var ptr *int",
-                    "explanation": "Declares a pointer to an integer."
-                },
-                {
-                    "title": "Using Pointers",
-                    "code": "x := 5\nptr := &x\nfmt.Println(*ptr)",
-                    "explanation": "Stores the address of x in ptr and prints its value using dereferencing."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Pointers",
-                    "url": "https://gobyexample.com/pointers"
-                },
-                {
-                    "title": "Tour of Go - Pointers",
-                    "url": "https://tour.golang.org/moretypes/1"
-                }
-            ]
-        },
-        "expectedOutput": "Value of a: 10\nMemory address of a: 0xADDRESS\nValue at pointer: 10"
+        "references": [
+          {
+            "title": "Go by Example - Pointers",
+            "url": "https://gobyexample.com/pointers"
+          },
+          {
+            "title": "Tour of Go - Pointers",
+            "url": "https://tour.golang.org/moretypes/1"
+          }
+        ]
+      },
+      "problem": "Demonstrate the use of pointers by printing the value, address, and dereferenced value of a variable.",
+      "expectedOutput": "Value of a: 10\nMemory address of a: <memory address>\nValue at pointer: 10"
     },
     {
-        "id": 11,
-        "title": "Error Handling",
-        "description": "Learn how to handle errors effectively in Go.",
-        "prerequisites": [
-            "Functions"
+      "id": 11,
+      "title": "Error Handling",
+      "description": "Learn how to handle errors effectively in Go.",
+      "prerequisites": [
+        "Functions"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n    \"fmt\"\n    \"errors\"\n)\n\nfunc main() {\n    // Handle errors here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n    \"fmt\"\n    \"errors\"\n)\n\nfunc divide(a, b int) (int, error) {\n    if b == 0 {\n        return 0, errors.New(\"division by zero is not allowed\")\n    }\n    return a / b, nil\n}\n\nfunc main() {\n    result, err := divide(10, 0)\n    if err != nil {\n        fmt.Println(\"Error:\", err)\n    } else {\n        fmt.Println(\"Result:\", result)\n    }\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Go handles errors using the 'error' type. Functions often return an error as the last return value, which should be checked before proceeding.",
+        "examples": [
+          {
+            "title": "Creating an Error",
+            "code": "err := errors.New(\"something went wrong\")",
+            "explanation": "Creates a new error message."
+          },
+          {
+            "title": "Returning Errors from Functions",
+            "code": "func checkPositive(n int) error {\n    if n < 0 {\n        return errors.New(\"negative number not allowed\")\n    }\n    return nil\n}",
+            "explanation": "Returns an error if the input number is negative."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport (\n    \"fmt\"\n    \"errors\"\n)\n\nfunc main() {\n    // Handle errors here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport (\n    \"fmt\"\n    \"errors\"\n)\n\nfunc divide(a, b int) (int, error) {\n    if b == 0 {\n        return 0, errors.New(\"division by zero is not allowed\")\n    }\n    return a / b, nil\n}\n\nfunc main() {\n    result, err := divide(10, 0)\n    if err != nil {\n        fmt.Println(\"Error:\", err)\n    } else {\n        fmt.Println(\"Result:\", result)\n    }\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Go handles errors using the 'error' type. Functions often return an error as the last return value, which should be checked before proceeding.",
-            "examples": [
-                {
-                    "title": "Creating an Error",
-                    "code": "err := errors.New(\"something went wrong\")",
-                    "explanation": "Creates a new error message."
-                },
-                {
-                    "title": "Returning Errors from Functions",
-                    "code": "func checkPositive(n int) error {\n    if n < 0 {\n        return errors.New(\"negative number not allowed\")\n    }\n    return nil\n}",
-                    "explanation": "Returns an error if the input number is negative."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Errors",
-                    "url": "https://gobyexample.com/errors"
-                },
-                {
-                    "title": "Tour of Go - Errors",
-                    "url": "https://tour.golang.org/methods/19"
-                }
-            ]
-        },
-        "expectedOutput": "Error: division by zero is not allowed"
+        "references": [
+          {
+            "title": "Go by Example - Errors",
+            "url": "https://gobyexample.com/errors"
+          },
+          {
+            "title": "Tour of Go - Errors",
+            "url": "https://tour.golang.org/methods/19"
+          }
+        ]
+      },
+      "problem": "Write a function that divides two numbers and returns an error if division by zero is attempted, then call the function with invalid input and handle the error.",
+      "expectedOutput": "Error: division by zero is not allowed"
     },
     {
-        "id": 12,
-        "title": "Structs",
-        "description": "Learn how to define and use structs in Go.",
-        "prerequisites": [
-            "Functions",
-            "Pointers"
+      "id": 12,
+      "title": "Structs",
+      "description": "Learn how to define and use structs in Go.",
+      "prerequisites": [
+        "Functions",
+        "Pointers"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define and use structs here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\ntype Person struct {\n    Name string\n    Age  int\n}\n\nfunc main() {\n    p := Person{Name: \"Alice\", Age: 25}\n    fmt.Println(\"Person:\", p)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Structs in Go are used to group related data together. They are similar to classes in object-oriented languages but do not support inheritance.",
+        "examples": [
+          {
+            "title": "Basic Struct",
+            "code": "type Car struct {\n    Brand string\n    Year  int\n}",
+            "explanation": "Defines a struct with two fields."
+          },
+          {
+            "title": "Initializing a Struct",
+            "code": "myCar := Car{Brand: \"Toyota\", Year: 2020}",
+            "explanation": "Creates a struct instance and assigns values."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define and use structs here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\ntype Person struct {\n    Name string\n    Age  int\n}\n\nfunc main() {\n    p := Person{Name: \"Alice\", Age: 25}\n    fmt.Println(\"Person:\", p)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Structs in Go are used to group related data together. They are similar to classes in object-oriented languages but do not support inheritance.",
-            "examples": [
-                {
-                    "title": "Basic Struct",
-                    "code": "type Car struct {\n    Brand string\n    Year  int\n}",
-                    "explanation": "Defines a struct with two fields."
-                },
-                {
-                    "title": "Initializing a Struct",
-                    "code": "myCar := Car{Brand: \"Toyota\", Year: 2020}",
-                    "explanation": "Creates a struct instance and assigns values."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Structs",
-                    "url": "https://gobyexample.com/structs"
-                },
-                {
-                    "title": "Tour of Go - Structs",
-                    "url": "https://tour.golang.org/moretypes/2"
-                }
-            ]
-        },
-        "expectedOutput": "Person: {Alice 25}"
+        "references": [
+          {
+            "title": "Go by Example - Structs",
+            "url": "https://gobyexample.com/structs"
+          },
+          {
+            "title": "Tour of Go - Structs",
+            "url": "https://tour.golang.org/moretypes/2"
+          }
+        ]
+      },
+      "problem": "Define a struct for a person with name and age, create an instance, and print its details.",
+      "expectedOutput": "Person: {Alice 25}"
     },
     {
-        "id": 13,
-        "title": "Interfaces",
-        "description": "Understand how to define and use interfaces in Go.",
-        "prerequisites": [
-            "Structs"
+      "id": 13,
+      "title": "Interfaces",
+      "description": "Understand how to define and use interfaces in Go.",
+      "prerequisites": [
+        "Structs"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define and use interfaces here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\ntype Speaker interface {\n    Speak() string\n}\n\ntype Dog struct {}\n\nfunc (d Dog) Speak() string {\n    return \"Woof!\"\n}\n\nfunc main() {\n    var s Speaker = Dog{}\n    fmt.Println(s.Speak())\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Interfaces in Go define a set of method signatures. Any type that implements those methods satisfies the interface.",
+        "examples": [
+          {
+            "title": "Basic Interface",
+            "code": "type Animal interface {\n    Speak() string\n}",
+            "explanation": "Defines an interface with a single method."
+          },
+          {
+            "title": "Implementing an Interface",
+            "code": "type Cat struct {}\n\nfunc (c Cat) Speak() string {\n    return \"Meow!\"\n}",
+            "explanation": "Implements the Speak method for the Cat type."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Define and use interfaces here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\ntype Speaker interface {\n    Speak() string\n}\n\ntype Dog struct {}\n\nfunc (d Dog) Speak() string {\n    return \"Woof!\"\n}\n\nfunc main() {\n    var s Speaker = Dog{}\n    fmt.Println(s.Speak())\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Interfaces in Go define a set of method signatures. Any type that implements those methods satisfies the interface.",
-            "examples": [
-                {
-                    "title": "Basic Interface",
-                    "code": "type Animal interface {\n    Speak() string\n}",
-                    "explanation": "Defines an interface with a single method."
-                },
-                {
-                    "title": "Implementing an Interface",
-                    "code": "type Cat struct {}\n\nfunc (c Cat) Speak() string {\n    return \"Meow!\"\n}",
-                    "explanation": "Implements the Speak method for the Cat type."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Interfaces",
-                    "url": "https://gobyexample.com/interfaces"
-                },
-                {
-                    "title": "Tour of Go - Interfaces",
-                    "url": "https://tour.golang.org/methods/9"
-                }
-            ]
-        },
-        "expectedOutput": "Woof!"
+        "references": [
+          {
+            "title": "Go by Example - Interfaces",
+            "url": "https://gobyexample.com/interfaces"
+          },
+          {
+            "title": "Tour of Go - Interfaces",
+            "url": "https://tour.golang.org/methods/9"
+          }
+        ]
+      },
+      "problem": "Define an interface and implement it using a struct, then call the interface method.",
+      "expectedOutput": "Woof!"
     },
     {
-        "id": 14,
-        "title": "Goroutines",
-        "description": "Learn how to use goroutines for concurrency in Go.",
-        "prerequisites": [
-            "Functions"
+      "id": 14,
+      "title": "Goroutines",
+      "description": "Learn how to use goroutines for concurrency in Go.",
+      "prerequisites": [
+        "Functions"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Use goroutines here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n    \"fmt\"\n    \"time\"\n)\n\nfunc sayHello() {\n    fmt.Println(\"Hello from goroutine!\")\n}\n\nfunc main() {\n    go sayHello()\n    time.Sleep(time.Second)\n    fmt.Println(\"Main function finished\")\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Goroutines are lightweight threads managed by the Go runtime. They allow for concurrent execution of functions.",
+        "examples": [
+          {
+            "title": "Starting a Goroutine",
+            "code": "go fmt.Println(\"Hello, Goroutine!\")",
+            "explanation": "Executes a function concurrently using a goroutine."
+          },
+          {
+            "title": "Using Sleep to Prevent Exit",
+            "code": "time.Sleep(time.Second)",
+            "explanation": "Prevents the main function from exiting before the goroutine runs."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Use goroutines here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport (\n    \"fmt\"\n    \"time\"\n)\n\nfunc sayHello() {\n    fmt.Println(\"Hello from goroutine!\")\n}\n\nfunc main() {\n    go sayHello()\n    time.Sleep(time.Second)\n    fmt.Println(\"Main function finished\")\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Goroutines are lightweight threads managed by the Go runtime. They allow for concurrent execution of functions.",
-            "examples": [
-                {
-                    "title": "Starting a Goroutine",
-                    "code": "go fmt.Println(\"Hello, Goroutine!\")",
-                    "explanation": "Executes a function concurrently using a goroutine."
-                },
-                {
-                    "title": "Using Sleep to Prevent Exit",
-                    "code": "time.Sleep(time.Second)",
-                    "explanation": "Prevents the main function from exiting before the goroutine runs."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Goroutines",
-                    "url": "https://gobyexample.com/goroutines"
-                },
-                {
-                    "title": "Tour of Go - Goroutines",
-                    "url": "https://tour.golang.org/concurrency/1"
-                }
-            ]
-        },
-        "expectedOutput": "Hello from goroutine!\nMain function finished"
+        "references": [
+          {
+            "title": "Go by Example - Goroutines",
+            "url": "https://gobyexample.com/goroutines"
+          },
+          {
+            "title": "Tour of Go - Goroutines",
+            "url": "https://tour.golang.org/concurrency/1"
+          }
+        ]
+      },
+      "problem": "Write a Go program that runs a function concurrently using a goroutine and waits for it to complete using Sleep.",
+      "expectedOutput": "Hello from goroutine!\nMain function finished"
     },
     {
-        "id": 15,
-        "title": "Channels",
-        "description": "Learn how to use channels to communicate between goroutines in Go.",
-        "prerequisites": [
-            "Goroutines"
+      "id": 15,
+      "title": "Channels",
+      "description": "Learn how to use channels to communicate between goroutines in Go.",
+      "prerequisites": [
+        "Goroutines"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Use channels here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc sendMessage(ch chan string) {\n    ch <- \"Hello from channel!\"\n}\n\nfunc main() {\n    ch := make(chan string)\n    go sendMessage(ch)\n    fmt.Println(<-ch)\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Channels provide a way for goroutines to communicate and synchronize execution. They can be used to send and receive values safely between goroutines.",
+        "examples": [
+          {
+            "title": "Creating a Channel",
+            "code": "ch := make(chan int)",
+            "explanation": "Creates a channel for integer values."
+          },
+          {
+            "title": "Sending and Receiving Data",
+            "code": "ch <- 10\nvalue := <-ch",
+            "explanation": "Sends a value into the channel and retrieves it."
+          }
         ],
-        "files": {
-            "main.go": {
-                "content": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    // Use channels here\n}",
-                "isMain": true
-            }
-        },
-        "solution": {
-            "main.go": "package main\n\nimport \"fmt\"\n\nfunc sendMessage(ch chan string) {\n    ch <- \"Hello from channel!\"\n}\n\nfunc main() {\n    ch := make(chan string)\n    go sendMessage(ch)\n    fmt.Println(<-ch)\n}"
-        },
-        "learningMaterials": {
-            "explanation": "Channels provide a way for goroutines to communicate and synchronize execution. They can be used to send and receive values safely between goroutines.",
-            "examples": [
-                {
-                    "title": "Creating a Channel",
-                    "code": "ch := make(chan int)",
-                    "explanation": "Creates a channel for integer values."
-                },
-                {
-                    "title": "Sending and Receiving Data",
-                    "code": "ch <- 10\nvalue := <-ch",
-                    "explanation": "Sends a value into the channel and retrieves it."
-                }
-            ],
-            "references": [
-                {
-                    "title": "Go by Example - Channels",
-                    "url": "https://gobyexample.com/channels"
-                },
-                {
-                    "title": "Tour of Go - Channels",
-                    "url": "https://tour.golang.org/concurrency/2"
-                }
-            ]
-        },
-        "expectedOutput": "Hello from channel!"
+        "references": [
+          {
+            "title": "Go by Example - Channels",
+            "url": "https://gobyexample.com/channels"
+          },
+          {
+            "title": "Tour of Go - Channels",
+            "url": "https://tour.golang.org/concurrency/2"
+          }
+        ]
+      },
+      "problem": "Create a channel to communicate between goroutines. Send a message from a goroutine and print the received message.",
+      "expectedOutput": "Hello from channel!"
     }
-]
+  ]  
 } 

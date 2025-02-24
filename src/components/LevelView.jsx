@@ -246,6 +246,12 @@ function LevelView() {
         </div>
 
         <div className="space-y-4">
+          <div className="card">
+            <h2 className="text-xl font-semibold mb-4">Problem Statement</h2>
+            <p className="text-gray-600">{level.problem}</p>
+          </div>
+
+          <h2 className="text-xl font-semibold">Code Editor</h2>
           <div className="flex h-[600px] border border-gray-200 rounded-lg overflow-hidden">
             <div id="file-explorer" className="border-r border-gray-200 bg-white">
               <FileExplorer
