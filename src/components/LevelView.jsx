@@ -20,7 +20,7 @@ function LevelView() {
   useEffect(() => {
     const fetchLevel = async () => {
       try {
-        const response = await fetch('/data/levels.json');
+        const response = await fetch(`/data/${moduleId}.json`);
         const data = await response.json();
         const foundLevel = data.levels.find(l => l.id === parseInt(levelId));
         setLevel(foundLevel);

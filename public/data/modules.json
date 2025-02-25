@@ -1,25 +1,93 @@
 {
   "modules": [
     {
-      "id": 1,
-      "title": "Basics of Go",
-      "description": "Learn the fundamental concepts of Go programming",
+      "id": "basics",
+      "title": "Go Basics",
+      "description": "Learn the fundamental concepts and syntax of Go programming",
+      "longDescription": "Start your Go journey by learning the core syntax, data types, and control structures that make up the foundation of Go programming.",
       "levels": 16,
-      "completed": 0
+      "order": 1,
+      "learningObjectives": [
+        "Understand Go syntax and basic program structure",
+        "Work with variables, data types, and operators",
+        "Implement control flow with conditionals and loops",
+        "Create and use functions",
+        "Understand basic error handling"
+      ]
     },
     {
-      "id": 2,
+      "id": "data-structures",
+      "title": "Data Structures",
+      "description": "Master arrays, slices, maps and other Go data structures",
+      "longDescription": "Explore Go's built-in data structures and learn how to effectively organize and manage your data in Go programs.",
+      "levels": 0,
+      "order": 2,
+      "learningObjectives": [
+        "Work with arrays and slices",
+        "Implement maps for key-value data",
+        "Use structs to create custom data types",
+        "Understand pointers and memory management",
+        "Implement custom data structures"
+      ]
+    },
+    {
+      "id": "concurrency",
+      "title": "Concurrency",
+      "description": "Learn Go's powerful concurrency features with goroutines and channels",
+      "longDescription": "Dive into Go's signature concurrency model using goroutines and channels to write efficient concurrent programs.",
+      "levels": 0,
+      "order": 3,
+      "learningObjectives": [
+        "Understand goroutines and how they work",
+        "Use channels for communication between goroutines",
+        "Implement concurrency patterns",
+        "Manage shared resources safely",
+        "Build efficient concurrent applications"
+      ]
+    },
+    {
+      "id": "web-development",
+      "title": "Web Development",
+      "description": "Build web servers and REST APIs using Go's standard library",
+      "longDescription": "Learn to create robust web servers and RESTful APIs using Go's powerful standard library and popular web frameworks.",
+      "levels": 6,
+      "order": 4,
+      "learningObjectives": [
+        "Create a basic web server with the net/http package",
+        "Handle HTTP requests and responses",
+        "Implement RESTful API endpoints",
+        "Work with JSON data",
+        "Connect to databases from Go web applications"
+      ]
+    },
+    {
+      "id": "advanced-go",
       "title": "Advanced Go",
-      "description": "Learn advanced concepts of Go programming",
+      "description": "Explore advanced Go concepts like reflection, interfaces, and testing",
+      "longDescription": "Take your Go skills to the next level by mastering advanced concepts that will make your code more robust, maintainable, and efficient.",
       "levels": 0,
-      "completed": 0
+      "order": 5,
+      "learningObjectives": [
+        "Master interfaces and type assertions",
+        "Use reflection for dynamic programming",
+        "Implement comprehensive testing strategies",
+        "Optimize Go code for performance",
+        "Work with the Go toolchain effectively"
+      ]
     },
     {
-      "id": 3,
-      "title": "Basic Projects",
-      "description": "Build basic projects using Go",
+      "id": "projects",
+      "title": "Go Projects",
+      "description": "Apply your Go skills in real-world projects",
+      "longDescription": "Put everything you've learned to use by building complete, practical applications with Go.",
       "levels": 0,
-      "completed": 0
+      "order": 6,
+      "learningObjectives": [
+        "Build a command-line tool",
+        "Create a RESTful API service",
+        "Develop a concurrent data processing application",
+        "Deploy Go applications to production environments"
+      ]
     }
   ]
 }

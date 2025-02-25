@@ -10,7 +10,7 @@ function ModuleView() {
   useEffect(() => {
     const fetchLevels = async () => {
       try {
-        const response = await fetch('/data/levels.json');
+        const response = await fetch(`/data/${moduleId}.json`);
         const data = await response.json();
         setLevels(data.levels);
         
@@ -23,7 +23,7 @@ function ModuleView() {
     };
 
     fetchLevels();
-  }, []);
+  }, [moduleId]);
 
   const isLevelCompleted = (levelId) => {
     return completedLevels.includes(`${moduleId}-${levelId}`);

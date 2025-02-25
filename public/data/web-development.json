@@ -1,0 +1,315 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "title": "Basic Web Server",
+      "description": "Create a simple web server that responds with 'Hello, Web!' on the root path.",
+      "prerequisites": [
+        "Basic knowledge of Go syntax",
+        "Understanding of client-server architecture"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n\t// Import required packages here\n)\n\nfunc main() {\n\t// Create your web server here\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc handler(w http.ResponseWriter, r *http.Request) {\n\tfmt.Fprintf(w, \"Hello, Web!\")\n}\n\nfunc main() {\n\thttp.HandleFunc(\"/\", handler)\n\tfmt.Println(\"Server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Go's standard library includes the 'net/http' package which provides HTTP client and server implementations. The http.HandleFunc function registers a handler function for a specific path pattern. The handler receives an http.ResponseWriter to write the response and an http.Request containing the client's request data.",
+        "examples": [
+          {
+            "title": "Basic Handler",
+            "code": "func helloHandler(w http.ResponseWriter, r *http.Request) {\n\tfmt.Fprintf(w, \"Hello from Go!\")\n}",
+            "explanation": "A simple handler function that writes text to the response."
+          },
+          {
+            "title": "Starting a Server",
+            "code": "http.HandleFunc(\"/hello\", helloHandler)\nlog.Fatal(http.ListenAndServe(\":8080\", nil))",
+            "explanation": "Registers a handler for the /hello path and starts a server on port 8080."
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Documentation - net/http package",
+            "url": "https://golang.org/pkg/net/http/"
+          },
+          {
+            "title": "Go by Example - HTTP Server",
+            "url": "https://gobyexample.com/http-servers"
+          }
+        ]
+      },
+      "problem": "Create a web server that listens on port 8080 and responds with 'Hello, Web!' when a client visits the root path (/).",
+      "expectedOutput": "Server starting on port 8080...\n[Browser shows \"Hello, Web!\" when visiting http://localhost:8080]"
+    },
+    {
+      "id": 2,
+      "title": "Multiple Routes",
+      "description": "Build a web server with multiple route handlers to serve different content.",
+      "prerequisites": [
+        "Basic understanding of web servers in Go",
+        "Knowledge of HTTP request handling"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n)\n\n// Write your handler functions here\n\nfunc main() {\n\t// Register your route handlers here\n\t\n\tfmt.Println(\"Server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc homeHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.URL.Path != \"/\" {\n\t\thttp.NotFound(w, r)\n\t\treturn\n\t}\n\tfmt.Fprintf(w, \"Welcome to the home page!\")\n}\n\nfunc aboutHandler(w http.ResponseWriter, r *http.Request) {\n\tfmt.Fprintf(w, \"About this server: A demo of multiple routes in Go.\")\n}\n\nfunc contactHandler(w http.ResponseWriter, r *http.Request) {\n\tfmt.Fprintf(w, \"Contact us at example@example.com\")\n}\n\nfunc main() {\n\thttp.HandleFunc(\"/\", homeHandler)\n\thttp.HandleFunc(\"/about\", aboutHandler)\n\thttp.HandleFunc(\"/contact\", contactHandler)\n\t\n\tfmt.Println(\"Server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Web applications typically need to handle multiple routes or endpoints. In Go, you can register different handler functions for different URL paths. It's also important to validate the requested path to prevent handlers from processing unintended requests.",
+        "examples": [
+          {
+            "title": "Path Validation",
+            "code": "func homeHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.URL.Path != \"/\" {\n\t\thttp.NotFound(w, r)\n\t\treturn\n\t}\n\t// Process valid request\n}",
+            "explanation": "Checks if the request path exactly matches '/' before processing."
+          },
+          {
+            "title": "Multiple Route Registration",
+            "code": "http.HandleFunc(\"/\", homeHandler)\nhttp.HandleFunc(\"/about\", aboutHandler)\nhttp.HandleFunc(\"/api/data\", dataHandler)",
+            "explanation": "Registers different handlers for different routes."
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Documentation - ServeMux",
+            "url": "https://golang.org/pkg/net/http/#ServeMux"
+          },
+          {
+            "title": "Go Web Examples - Routing",
+            "url": "https://gowebexamples.com/routes-using-gorilla-mux/"
+          }
+        ]
+      },
+      "problem": "Create a web server with three routes: '/' should display 'Welcome to the home page!', '/about' should display information about the server, and '/contact' should display contact information. Make sure the home handler only responds to the exact path '/'.",
+      "expectedOutput": "Server starting on port 8080...\n[Browser shows different content when visiting each route]"
+    },
+    {
+      "id": 3,
+      "title": "Request Methods and Parameters",
+      "description": "Learn to handle different HTTP methods and extract parameters from requests.",
+      "prerequisites": [
+        "Experience with basic web servers in Go",
+        "Understanding of HTTP methods (GET, POST, etc.)"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc formHandler(w http.ResponseWriter, r *http.Request) {\n\t// Handle form submission here\n}\n\nfunc main() {\n\t// Serve a static HTML file for the form\n\thttp.Handle(\"/\", http.FileServer(http.Dir(\"./static\")))\n\t\n\t// Register your form handler here\n\t\n\tfmt.Println(\"Server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}",
+          "isMain": true
+        },
+        "static/index.html": {
+          "content": "<!DOCTYPE html>\n<html>\n<head>\n\t<title>Form Example</title>\n</head>\n<body>\n\t<h1>Submit a Form</h1>\n\t<form action=\"/form\" method=\"POST\">\n\t\t<label for=\"name\">Name:</label><br>\n\t\t<input type=\"text\" id=\"name\" name=\"name\"><br>\n\t\t<label for=\"email\">Email:</label><br>\n\t\t<input type=\"email\" id=\"email\" name=\"email\"><br><br>\n\t\t<input type=\"submit\" value=\"Submit\">\n\t</form>\n</body>\n</html>",
+          "isMain": false
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc formHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.URL.Path != \"/form\" {\n\t\thttp.NotFound(w, r)\n\t\treturn\n\t}\n\t\n\tif r.Method != \"POST\" {\n\t\tfmt.Fprintf(w, \"Method not supported: %s\", r.Method)\n\t\treturn\n\t}\n\t\n\t// Parse the form data\n\terr := r.ParseForm()\n\tif err != nil {\n\t\tfmt.Fprintf(w, \"ParseForm() err: %v\", err)\n\t\treturn\n\t}\n\t\n\tname := r.FormValue(\"name\")\n\temail := r.FormValue(\"email\")\n\t\n\tfmt.Fprintf(w, \"Form submission successful!\\n\")\n\tfmt.Fprintf(w, \"Name: %s\\n\", name)\n\tfmt.Fprintf(w, \"Email: %s\\n\", email)\n}\n\nfunc main() {\n\t// Serve a static HTML file for the form\n\thttp.Handle(\"/\", http.FileServer(http.Dir(\"./static\")))\n\t\n\t// Register the form handler\n\thttp.HandleFunc(\"/form\", formHandler)\n\t\n\tfmt.Println(\"Server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}"
+      },
+      "learningMaterials": {
+        "explanation": "HTTP defines several methods like GET, POST, PUT, and DELETE. In web forms, GET is typically used for retrieving data, while POST is used for submitting data. Go's net/http package provides methods to handle these different request types and extract form data and query parameters.",
+        "examples": [
+          {
+            "title": "Checking Request Method",
+            "code": "if r.Method != \"POST\" {\n\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\treturn\n}",
+            "explanation": "Validates that the request uses the POST method."
+          },
+          {
+            "title": "Parsing Form Data",
+            "code": "err := r.ParseForm()\nif err != nil {\n\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\treturn\n}\nname := r.FormValue(\"name\")",
+            "explanation": "Parses form data and extracts a specific field value."
+          },
+          {
+            "title": "Getting Query Parameters",
+            "code": "query := r.URL.Query()\nid := query.Get(\"id\")",
+            "explanation": "Extracts query parameters from a URL like /?id=123."
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Documentation - Request",
+            "url": "https://golang.org/pkg/net/http/#Request"
+          },
+          {
+            "title": "Go by Example - HTTP Methods",
+            "url": "https://gobyexample.com/http-methods"
+          }
+        ]
+      },
+      "problem": "Create a web server that serves a form at the root path and handles form submissions at '/form'. The form should collect a name and email, and the server should respond with the submitted data. Make sure to validate the request path and method.",
+      "expectedOutput": "Server starting on port 8080...\n[Browser shows a form at the root path]\n[After submission, displays \"Form submission successful!\" followed by the submitted name and email]"
+    },
+    {
+      "id": 4,
+      "title": "JSON REST API",
+      "description": "Build a RESTful API that processes and returns JSON data.",
+      "prerequisites": [
+        "Understanding of HTTP request handling in Go",
+        "Basic knowledge of JSON format"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n)\n\n// Define your data structures here\n\n// Implement your API handlers here\n\nfunc main() {\n\t// Register your API routes here\n\t\n\tfmt.Println(\"API server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n\t\"strconv\"\n\t\"sync\"\n)\n\n// Book represents book data\ntype Book struct {\n\tID     int    `json:\"id\"`\n\tTitle  string `json:\"title\"`\n\tAuthor string `json:\"author\"`\n\tYear   int    `json:\"year\"`\n}\n\n// BookStore is our \"database\"\ntype BookStore struct {\n\tBooks map[int]Book\n\tmutex sync.RWMutex\n\tnextID int\n}\n\n// Global bookstore instance\nvar bookstore = &BookStore{\n\tBooks:  make(map[int]Book),\n\tnextID: 1,\n}\n\n// Initialize with some books\nfunc init() {\n\tbookstore.Books[1] = Book{ID: 1, Title: \"The Go Programming Language\", Author: \"Alan A. A. Donovan\", Year: 2015}\n\tbookstore.Books[2] = Book{ID: 2, Title: \"Go in Action\", Author: \"William Kennedy\", Year: 2016}\n\tbookstore.nextID = 3\n}\n\n// getBooksHandler returns all books\nfunc getBooksHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.Method != \"GET\" {\n\t\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\t\n\tbookstore.mutex.RLock()\n\tdefer bookstore.mutex.RUnlock()\n\t\n\t// Convert map to slice for better JSON output\n\tbooks := make([]Book, 0, len(bookstore.Books))\n\tfor _, book := range bookstore.Books {\n\t\tbooks = append(books, book)\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(books)\n}\n\n// getBookHandler returns a specific book by ID\nfunc getBookHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.Method != \"GET\" {\n\t\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\t\n\t// Extract ID from query parameter\n\tidStr := r.URL.Query().Get(\"id\")\n\tif idStr == \"\" {\n\t\thttp.Error(w, \"Missing id parameter\", http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\tid, err := strconv.Atoi(idStr)\n\tif err != nil {\n\t\thttp.Error(w, \"Invalid id parameter\", http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\tbookstore.mutex.RLock()\n\tdefer bookstore.mutex.RUnlock()\n\t\n\tbook, exists := bookstore.Books[id]\n\tif !exists {\n\t\thttp.Error(w, \"Book not found\", http.StatusNotFound)\n\t\treturn\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(book)\n}\n\n// createBookHandler adds a new book\nfunc createBookHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.Method != \"POST\" {\n\t\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\t\n\tvar book Book\n\terr := json.NewDecoder(r.Body).Decode(&book)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\tbookstore.mutex.Lock()\n\tdefer bookstore.mutex.Unlock()\n\t\n\t// Assign new ID and add to bookstore\n\tbook.ID = bookstore.nextID\n\tbookstore.Books[book.ID] = book\n\tbookstore.nextID++\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tw.WriteHeader(http.StatusCreated)\n\tjson.NewEncoder(w).Encode(book)\n}\n\nfunc main() {\n\t// Register API routes\n\thttp.HandleFunc(\"/api/books\", getBooksHandler)\n\thttp.HandleFunc(\"/api/book\", getBookHandler)\n\thttp.HandleFunc(\"/api/books/create\", createBookHandler)\n\t\n\tfmt.Println(\"API server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}"
+      },
+      "learningMaterials": {
+        "explanation": "RESTful APIs typically use JSON for data exchange. Go's encoding/json package makes it easy to convert between Go structs and JSON. A RESTful API uses different HTTP methods (GET, POST, PUT, DELETE) for different operations on resources. The combination of HTTP methods and URL patterns defines your API's interface.",
+        "examples": [
+          {
+            "title": "JSON Struct Tags",
+            "code": "type User struct {\n\tID        int    `json:\"id\"`\n\tName      string `json:\"name\"`\n\tEmail     string `json:\"email\"`\n\tCreatedAt string `json:\"created_at,omitempty\"`\n}",
+            "explanation": "Struct tags define how fields appear in JSON. The 'omitempty' option omits empty fields."
+          },
+          {
+            "title": "JSON Encoding",
+            "code": "w.Header().Set(\"Content-Type\", \"application/json\")\njson.NewEncoder(w).Encode(data)",
+            "explanation": "Sets the content type header and encodes a Go value as JSON to the response."
+          },
+          {
+            "title": "JSON Decoding",
+            "code": "var user User\nerr := json.NewDecoder(r.Body).Decode(&user)\nif err != nil {\n\treturn err\n}",
+            "explanation": "Decodes JSON from the request body into a Go struct."
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Documentation - encoding/json",
+            "url": "https://golang.org/pkg/encoding/json/"
+          },
+          {
+            "title": "Go Web Examples - JSON",
+            "url": "https://gowebexamples.com/json/"
+          },
+          {
+            "title": "RESTful API Design Best Practices",
+            "url": "https://restfulapi.net/rest-api-design-tutorial-with-example/"
+          }
+        ]
+      },
+      "problem": "Create a RESTful API for a book collection with these endpoints: GET /api/books (list all books), GET /api/book?id=X (get a specific book), and POST /api/books/create (add a new book). Each book should have an ID, title, author, and publication year. Store the books in memory using a map.",
+      "expectedOutput": "API server starting on port 8080...\n[API endpoints return appropriate JSON responses]"
+    },
+    {
+      "id": 5,
+      "title": "Database Integration",
+      "description": "Connect your web application to a database to persist data.",
+      "prerequisites": [
+        "Understanding of REST APIs in Go",
+        "Basic SQL knowledge"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n\t\"database/sql\"\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n\t\"os\"\n\t\"strconv\"\n\n\t_ \"github.com/mattn/go-sqlite3\"\n)\n\n// Define your data structures here\n\n// Implement your database functions here\n\n// Implement your API handlers here\n\nfunc main() {\n\t// Open database connection\n\t// Implement database setup\n\t// Register your API routes\n\t\n\tfmt.Println(\"Database-backed API server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n\t\"database/sql\"\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n\t\"os\"\n\t\"strconv\"\n\n\t_ \"github.com/mattn/go-sqlite3\"\n)\n\n// Task represents a task in our to-do list\ntype Task struct {\n\tID          int    `json:\"id\"`\n\tTitle       string `json:\"title\"`\n\tDescription string `json:\"description\"`\n\tCompleted   bool   `json:\"completed\"`\n}\n\n// Global database connection\nvar db *sql.DB\n\n// initDB initializes the database\nfunc initDB() {\n\t// Check if the database file exists\n\tdbFile := \"./tasks.db\"\n\t_, err := os.Stat(dbFile)\n\tdbExists := !os.IsNotExist(err)\n\t\n\t// Open the database connection\n\tdb, err = sql.Open(\"sqlite3\", dbFile)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\t\n\t// Create tables if the database is new\n\tif !dbExists {\n\t\tcreateTable()\n\t\tinsertSampleData()\n\t}\n}\n\n// createTable creates the tasks table\nfunc createTable() {\n\tquery := `\n\tCREATE TABLE IF NOT EXISTS tasks (\n\t\tid INTEGER PRIMARY KEY AUTOINCREMENT,\n\t\ttitle TEXT NOT NULL,\n\t\tdescription TEXT,\n\t\tcompleted BOOLEAN DEFAULT 0\n\t);\n\t`\n\t_, err := db.Exec(query)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n}\n\n// insertSampleData adds sample tasks to the database\nfunc insertSampleData() {\n\ttasks := []Task{\n\t\t{Title: \"Learn Go\", Description: \"Study Go programming language basics\", Completed: true},\n\t\t{Title: \"Build REST API\", Description: \"Create a RESTful API with Go\", Completed: false},\n\t\t{Title: \"Connect to Database\", Description: \"Integrate SQLite with Go application\", Completed: false},\n\t}\n\t\n\tfor _, task := range tasks {\n\t\t_, err := db.Exec(\n\t\t\t\"INSERT INTO tasks (title, description, completed) VALUES (?, ?, ?)\",\n\t\t\ttask.Title, task.Description, task.Completed,\n\t\t)\n\t\tif err != nil {\n\t\t\tlog.Fatal(err)\n\t\t}\n\t}\n}\n\n// getAllTasks retrieves all tasks from the database\nfunc getAllTasks() ([]Task, error) {\n\trows, err := db.Query(\"SELECT id, title, description, completed FROM tasks\")\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tdefer rows.Close()\n\t\n\tvar tasks []Task\n\tfor rows.Next() {\n\t\tvar task Task\n\t\terr := rows.Scan(&task.ID, &task.Title, &task.Description, &task.Completed)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\ttasks = append(tasks, task)\n\t}\n\t\n\treturn tasks, nil\n}\n\n// getTask retrieves a single task by ID\nfunc getTask(id int) (Task, error) {\n\tvar task Task\n\trow := db.QueryRow(\n\t\t\"SELECT id, title, description, completed FROM tasks WHERE id = ?\",\n\t\tid,\n\t)\n\terr := row.Scan(&task.ID, &task.Title, &task.Description, &task.Completed)\n\treturn task, err\n}\n\n// createTask adds a new task to the database\nfunc createTask(task Task) (Task, error) {\n\tres, err := db.Exec(\n\t\t\"INSERT INTO tasks (title, description, completed) VALUES (?, ?, ?)\",\n\t\ttask.Title, task.Description, task.Completed,\n\t)\n\tif err != nil {\n\t\treturn task, err\n\t}\n\t\n\tid, err := res.LastInsertId()\n\tif err != nil {\n\t\treturn task, err\n\t}\n\t\n\ttask.ID = int(id)\n\treturn task, nil\n}\n\n// updateTask updates an existing task\nfunc updateTask(task Task) error {\n\t_, err := db.Exec(\n\t\t\"UPDATE tasks SET title = ?, description = ?, completed = ? WHERE id = ?\",\n\t\ttask.Title, task.Description, task.Completed, task.ID,\n\t)\n\treturn err\n}\n\n// Handler for GET /api/tasks\nfunc getTasksHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.Method != \"GET\" {\n\t\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\t\n\ttasks, err := getAllTasks()\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusInternalServerError)\n\t\treturn\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(tasks)\n}\n\n// Handler for GET /api/task?id=X\nfunc getTaskHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.Method != \"GET\" {\n\t\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\t\n\t// Extract ID from query parameter\n\tidStr := r.URL.Query().Get(\"id\")\n\tif idStr == \"\" {\n\t\thttp.Error(w, \"Missing id parameter\", http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\tid, err := strconv.Atoi(idStr)\n\tif err != nil {\n\t\thttp.Error(w, \"Invalid id parameter\", http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\ttask, err := getTask(id)\n\tif err != nil {\n\t\tif err == sql.ErrNoRows {\n\t\t\thttp.Error(w, \"Task not found\", http.StatusNotFound)\n\t\t} else {\n\t\t\thttp.Error(w, err.Error(), http.StatusInternalServerError)\n\t\t}\n\t\treturn\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(task)\n}\n\n// Handler for POST /api/tasks/create\nfunc createTaskHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.Method != \"POST\" {\n\t\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\t\n\tvar task Task\n\terr := json.NewDecoder(r.Body).Decode(&task)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\tcreatedTask, err := createTask(task)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusInternalServerError)\n\t\treturn\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tw.WriteHeader(http.StatusCreated)\n\tjson.NewEncoder(w).Encode(createdTask)\n}\n\n// Handler for PUT /api/tasks/update\nfunc updateTaskHandler(w http.ResponseWriter, r *http.Request) {\n\tif r.Method != \"PUT\" {\n\t\thttp.Error(w, \"Method not allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\t\n\tvar task Task\n\terr := json.NewDecoder(r.Body).Decode(&task)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\tif task.ID == 0 {\n\t\thttp.Error(w, \"Task ID is required\", http.StatusBadRequest)\n\t\treturn\n\t}\n\t\n\t// Check if the task exists\n\t_, err = getTask(task.ID)\n\tif err != nil {\n\t\tif err == sql.ErrNoRows {\n\t\t\thttp.Error(w, \"Task not found\", http.StatusNotFound)\n\t\t} else {\n\t\t\thttp.Error(w, err.Error(), http.StatusInternalServerError)\n\t\t}\n\t\treturn\n\t}\n\t\n\t// Update the task\n\terr = updateTask(task)\n\tif err != nil {\n\t\thttp.Error(w, err.Error(), http.StatusInternalServerError)\n\t\treturn\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(task)\n}\n\nfunc main() {\n\t// Initialize database\n\tinitDB()\n\tdefer db.Close()\n\t\n\t// Register API routes\n\thttp.HandleFunc(\"/api/tasks\", getTasksHandler)\n\thttp.HandleFunc(\"/api/task\", getTaskHandler)\n\thttp.HandleFunc(\"/api/tasks/create\", createTaskHandler)\n\thttp.HandleFunc(\"/api/tasks/update\", updateTaskHandler)\n\t\n\tfmt.Println(\"Database-backed API server starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Go's 'database/sql' package provides a generic interface for SQL databases. To use a specific database, you need to import its driver (like 'github.com/mattn/go-sqlite3' for SQLite). The standard workflow involves opening a connection, preparing statements, executing queries, and scanning results into Go structures. Connection pooling is handled automatically.",
+        "examples": [
+          {
+            "title": "Opening a Database Connection",
+            "code": "db, err := sql.Open(\"sqlite3\", \"./database.db\")\nif err != nil {\n\tlog.Fatal(err)\n}\ndefer db.Close()",
+            "explanation": "Opens a connection to an SQLite database and ensures it's closed when the function ends."
+          },
+          {
+            "title": "Querying Multiple Rows",
+            "code": "rows, err := db.Query(\"SELECT id, name FROM users\")\nif err != nil {\n\treturn nil, err\n}\ndefer rows.Close()\n\nvar users []User\nfor rows.Next() {\n\tvar u User\n\terr := rows.Scan(&u.ID, &u.Name)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\tusers = append(users, u)\n}",
+            "explanation": "Queries multiple rows and scans each row into a User struct."
+          },
+          {
+            "title": "Getting a Single Row",
+            "code": "var user User\nrow := db.QueryRow(\"SELECT id, name FROM users WHERE id = ?\", id)\nerr := row.Scan(&user.ID, &user.Name)\nif err != nil {\n\treturn user, err\n}",
+            "explanation": "Queries a single row and scans it into a User struct."
+          },
+          {
+            "title": "Prepared Statements",
+            "code": "stmt, err := db.Prepare(\"INSERT INTO users(name, email) VALUES(?, ?)\")\nif err != nil {\n\treturn err\n}\ndefer stmt.Close()\n\n_, err = stmt.Exec(\"John\", \"john@example.com\")",
+            "explanation": "Prepares a statement for efficient reuse and executes it with parameters."
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Documentation - database/sql",
+            "url": "https://golang.org/pkg/database/sql/"
+          },
+          {
+            "title": "Go Database Tutorial",
+            "url": "https://go.dev/doc/tutorial/database-access"
+          },
+          {
+            "title": "SQLite Documentation",
+            "url": "https://www.sqlite.org/docs.html"
+          }
+        ]
+      },
+      "problem": "Create a to-do list API that persists tasks in an SQLite database. The API should support: listing all tasks (GET /api/tasks), getting a specific task (GET /api/task?id=X), creating a new task (POST /api/tasks/create), and updating a task (PUT /api/tasks/update). Each task should have an ID, title, description, and completed status.",
+      "expectedOutput": "Database-backed API server starting on port 8080...\n[API endpoints interact with the SQLite database]"
+    },
+    {
+      "id": 6,
+      "title": "Middleware and Authentication",
+      "description": "Implement middleware for logging and basic authentication.",
+      "prerequisites": [
+        "Experience with RESTful APIs in Go",
+        "Understanding of HTTP headers and status codes"
+      ],
+      "files": {
+        "main.go": {
+          "content": "package main\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n\t\"os\"\n\t\"time\"\n)\n\n// Define your data structures here\n\n// Implement your middleware functions here\n\n// Implement your protected handlers here\n\nfunc main() {\n\t// Register your routes with middleware\n\t\n\tfmt.Println(\"Server with middleware starting on port 8080...\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}",
+          "isMain": true
+        }
+      },
+      "solution": {
+        "main.go": "package main\n\nimport (\n\t\"encoding/base64\"\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"log\"\n\t\"net/http\"\n\t\"os\"\n\t\"strings\"\n\t\"time\"\n)\n\n// User represents a user in our system\ntype User struct {\n\tUsername string `json:\"username\"`\n\tRole     string `json:\"role\"`\n}\n\n// Response represents a generic API response\ntype Response struct {\n\tMessage string `json:\"message\"`\n\tData    any    `json:\"data,omitempty\"`\n}\n\n// Simple in-memory user store\nvar users = map[string]string{\n\t\"admin\": \"password123\",\n\t\"user\":  \"userpass\",\n}\n\n// userRoles maps users to their roles\nvar userRoles = map[string]string{\n\t\"admin\": \"admin\",\n\t\"user\":  \"user\",\n}\n\n// loggingMiddleware logs information about each request\nfunc loggingMiddleware(next http.HandlerFunc) http.HandlerFunc {\n\treturn func(w http.ResponseWriter, r *http.Request) {\n\t\t// Log request details\n\t\tstartTime := time.Now()\n\t\tlog.Printf(\n\t\t\t\"[%s] %s %s\",\n\t\t\tr.Method,\n\t\t\tr.RequestURI,\n\t\t\tr.RemoteAddr,\n\t\t)\n\t\t\n\t\t// Call the next handler\n\t\tnext(w, r)\n\t\t\n\t\t// Log the time taken\n\t\tlog.Printf(\n\t\t\t\"Request completed in %v\",\n\t\t\ttime.Since(startTime),\n\t\t)\n\t}\n}\n\n// basicAuthMiddleware requires basic authentication\nfunc basicAuthMiddleware(next http.HandlerFunc) http.HandlerFunc {\n\treturn func(w http.ResponseWriter, r *http.Request) {\n\t\t// Get the Authorization header\n\t\tauth := r.Header.Get(\"Authorization\")\n\t\tif auth == \"\" {\n\t\t\tw.Header().Set(\"WWW-Authenticate\", `Basic realm=\"Restricted\"`) \n\t\t\thttp.Error(w, \"Unauthorized\", http.StatusUnauthorized)\n\t\t\treturn\n\t\t}\n\t\t\n\t\t// Parse the Authorization header\n\t\tif !strings.HasPrefix(auth, \"Basic \") {\n\t\t\thttp.Error(w, \"Invalid authentication method\", http.StatusBadRequest)\n\t\t\treturn\n\t\t}\n\t\t\n\t\t// Decode the base64 credentials\n\t\tauthDecoded, err := base64.StdEncoding.DecodeString(auth[6:]) // Remove \"Basic \"\n\t\tif err != nil {\n\t\t\thttp.Error(w, \"Invalid credentials format\", http.StatusBadRequest)\n\t\t\treturn\n\t\t}\n\t\t\n\t\t// Split username and password\n\t\tcredentials := strings.SplitN(string(authDecoded), \":\", 2)\n\t\tif len(credentials) != 2 {\n\t\t\thttp.Error(w, \"Invalid credentials format\", http.StatusBadRequest)\n\t\t\treturn\n\t\t}\n\t\t\n\t\tusername, password := credentials[0], credentials[1]\n\t\t\n\t\t// Validate credentials\n\t\texpectedPassword, exists := users[username]\n\t\tif !exists || expectedPassword != password {\n\t\t\tw.Header().Set(\"WWW-Authenticate\", `Basic realm=\"Restricted\"`)\n\t\t\thttp.Error(w, \"Unauthorized\", http.StatusUnauthorized)\n\t\t\treturn\n\t\t}\n\t\t\n\t\t// Add user context\n\t\tr.Header.Set(\"X-User\", username)\n\t\tr.Header.Set(\"X-Role\", userRoles[username])\n\t\t\n\t\t// Call the next handler\n\t\tnext(w, r)\n\t}\n}\n\n// adminOnlyMiddleware restricts access to admin users\nfunc adminOnlyMiddleware(next http.HandlerFunc) http.HandlerFunc {\n\treturn func(w http.ResponseWriter, r *http.Request) {\n\t\t// Check if the user has admin role\n\t\trole := r.Header.Get(\"X-Role\")\n\t\tif role != \"admin\" {\n\t\t\thttp.Error(w, \"Forbidden: Admin access required\", http.StatusForbidden)\n\t\t\treturn\n\t\t}\n\t\t\n\t\t// Call the next handler\n\t\tnext(w, r)\n\t}\n}\n\n// Protected endpoint handler - requires authentication\nfunc protectedHandler(w http.ResponseWriter, r *http.Request) {\n\tusername := r.Header.Get(\"X-User\")\n\trole := r.Header.Get(\"X-Role\")\n\t\n\tuser := User{\n\t\tUsername: username,\n\t\tRole:     role,\n\t}\n\t\n\tresponse := Response{\n\t\tMessage: \"You've accessed a protected endpoint!\",\n\t\tData:    user,\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(response)\n}\n\n// Admin-only endpoint handler\nfunc adminHandler(w http.ResponseWriter, r *http.Request) {\n\tresponse := Response{\n\t\tMessage: \"Welcome to the admin panel!\",\n\t\tData:    map[string]string{\"status\": \"You have full administrative access\"},\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(response)\n}\n\n// Public endpoint handler - no authentication required\nfunc publicHandler(w http.ResponseWriter, r *http.Request) {\n\tresponse := Response{\n\t\tMessage: \"This is a public endpoint that anyone can access\",\n\t}\n\t\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tjson.NewEncoder(w).Encode(response)\n}\n\n// Chain multiple middleware functions\nfunc chainMiddleware(h http.HandlerFunc, middleware ...func(http.HandlerFunc) http.HandlerFunc) http.HandlerFunc {\n\tfor _, m := range middleware {\n\t\th = m(h)\n\t}\n\treturn h\n}\n\nfunc main() {\n\t// Setup logging\n\tlogFile, err := os.OpenFile(\"server.log\", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)\n\tif err != nil {\n\t\tlog.Fatal(err)\n\t}\n\tdefer logFile.Close()\n\tlog.SetOutput(logFile)\n\t\n\t// Register routes with middleware\n\t// Public route - only logging middleware\n\thttp.HandleFunc(\"/api/public\", chainMiddleware(\n\t\tpublicHandler,\n\t\tloggingMiddleware,\n\t))\n\t\n\t// Protected route - logging and authentication middleware\n\thttp.HandleFunc(\"/api/protected\", chainMiddleware(\n\t\tprotectedHandler,\n\t\tloggingMiddleware,\n\t\tbasicAuthMiddleware,\n\t))\n\t\n\t// Admin route - logging, authentication, and admin-only middleware\n\thttp.HandleFunc(\"/api/admin\", chainMiddleware(\n\t\tadminHandler,\n\t\tloggingMiddleware,\n\t\tbasicAuthMiddleware,\n\t\tadminOnlyMiddleware,\n\t))\n\t\n\tfmt.Println(\"Server with middleware starting on port 8080...\")\n\tlog.Printf(\"Server started on http://localhost:8080\")\n\tlog.Fatal(http.ListenAndServe(\":8080\", nil))\n}"
+      },
+      "learningMaterials": {
+        "explanation": "Middleware functions sit between the HTTP request and your application handlers. They can perform tasks like logging, authentication, request preprocessing, and more. In Go, middleware is typically implemented as a function that takes a handler and returns a new handler with added functionality. Multiple middleware can be chained together to create a processing pipeline.",
+        "examples": [
+          {
+            "title": "Basic Middleware Structure",
+            "code": "func loggingMiddleware(next http.Handler) http.Handler {\n\treturn http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n\t\t// Do something before calling the next handler\n\t\tlog.Printf(\"Request: %s %s\", r.Method, r.URL.Path)\n\t\t\n\t\t// Call the next handler\n\t\tnext.ServeHTTP(w, r)\n\t\t\n\t\t// Do something after calling the next handler\n\t\tlog.Println(\"Response sent\")\n\t})\n}",
+            "explanation": "A middleware function that logs request details before and after handling the request."
+          },
+          {
+            "title": "Basic Auth Implementation",
+            "code": "func basicAuth(username, password string, next http.Handler) http.Handler {\n\treturn http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {\n\t\t// Get the Authorization header\n\t\tauth := r.Header.Get(\"Authorization\")\n\t\tif auth == \"\" {\n\t\t\tw.Header().Set(\"WWW-Authenticate\", `Basic realm=\"Restricted\"`)\n\t\t\thttp.Error(w, \"Unauthorized\", http.StatusUnauthorized)\n\t\t\treturn\n\t\t}\n\t\t\n\t\t// Decode and validate credentials\n\t\t// ...\n\t\t\n\t\t// Call the next handler\n\t\tnext.ServeHTTP(w, r)\n\t})\n}",
+            "explanation": "A middleware function that implements HTTP Basic Authentication."
+          },
+          {
+            "title": "Middleware Chaining",
+            "code": "func chainMiddleware(h http.Handler, middleware ...func(http.Handler) http.Handler) http.Handler {\n\tfor _, m := range middleware {\n\t\th = m(h)\n\t}\n\treturn h\n}",
+            "explanation": "A helper function to chain multiple middleware functions together."
+          }
+        ],
+        "references": [
+          {
+            "title": "Go Web Examples - Middleware",
+            "url": "https://gowebexamples.com/http-middleware/"
+          },
+          {
+            "title": "HTTP Basic Authentication",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication"
+          },
+          {
+            "title": "Go HTTP Server - ServeMux",
+            "url": "https://pkg.go.dev/net/http#ServeMux"
+          }
+        ]
+      },
+      "problem": "Create a web server with three endpoints: a public endpoint accessible to anyone, a protected endpoint that requires Basic Authentication, and an admin-only endpoint that requires both authentication and admin role. Implement middleware for logging (records request method, path, and timing) and authentication. Use simple hardcoded username/password pairs: 'admin:password123' (with admin role) and 'user:userpass' (with user role).",
+      "expectedOutput": "Server with middleware starting on port 8080...\n[Log entries showing requests and authentication status]"
+    }
+  ]
+}
