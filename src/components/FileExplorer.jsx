@@ -58,11 +58,11 @@ export default function FileExplorer(props) {
   const renameFile = () => {
     const oldPath = currentPath;
     const newPath = oldPath.split('/').slice(0, -1).concat(newFileName).join('/');
-    
+
     const newFiles = { ...files };
     newFiles[newPath] = newFiles[oldPath];
     delete newFiles[oldPath];
-    
+
     onUpdateFiles(newFiles);
     setShowRenameDialog(false);
   };
@@ -158,7 +158,7 @@ export default function FileExplorer(props) {
           );
         })}
 
-        {filesList.map(([fileName, fileContent]) => {
+        {filesList.map(([fileName, _fileContent]) => {
           const filePath = basePath ? `${basePath}/${fileName}` : fileName;
           return (
             <li key={filePath} onClick={() => onFileSelect(filePath)}>

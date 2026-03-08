@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
 import Split from 'split.js';
 import { submitCode } from '../services/judge';
@@ -8,7 +8,9 @@ import { saveCompletedLevel, saveCodeFiles, getCodeFiles } from '../services/sto
 
 function LevelView() {
   const { moduleId, levelId } = useParams();
+  const navigate = useNavigate();
   const [level, setLevel] = useState(null);
+  const [allLevels, setAllLevels] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [files, setFiles] = useState({});
   const [output, setOutput] = useState('');
@@ -22,6 +24,7 @@ function LevelView() {
       try {
         const response = await fetch(`/data/${moduleId}.json`);
         const data = await response.json();
+        setAllLevels(data.levels);
         const foundLevel = data.levels.find(l => l.id === parseInt(levelId));
         setLevel(foundLevel);
         if (foundLevel) {
@@ -39,7 +42,7 @@ function LevelView() {
     };
 
     fetchLevel();
-  }, [levelId]);
+  }, [levelId, moduleId]);
 
   useEffect(() => {
     if (level && !splitInitialized.current) {
@@ -118,6 +121,34 @@ function LevelView() {
     }
   };
 
+  const getCurrentLevelIndex = () => {
+    return allLevels.findIndex(l => l.id === parseInt(levelId));
+  };
+
+  const hasPreviousLevel = () => {
+    return getCurrentLevelIndex() > 0;
+  };
+
+  const hasNextLevel = () => {
+    return getCurrentLevelIndex() < allLevels.length - 1;
+  };
+
+  const handlePreviousLevel = () => {
+    const currentIndex = getCurrentLevelIndex();
+    if (currentIndex > 0) {
+      const previousLevel = allLevels[currentIndex - 1];
+      navigate(`/module/${moduleId}/level/${previousLevel.id}`);
+    }
+  };
+
+  const handleNextLevel = () => {
+    const currentIndex = getCurrentLevelIndex();
+    if (currentIndex < allLevels.length - 1) {
+      const nextLevel = allLevels[currentIndex + 1];
+      navigate(`/module/${moduleId}/level/${nextLevel.id}`);
+    }
+  };
+
   if (!level) {
     return (
       <div className="text-center py-12">
@@ -146,14 +177,40 @@ function LevelView() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center space-x-4">
-        <Link
-          to={`/module/${moduleId}`}
-          className="text-go-blue hover:underline"
-        >
-          ← Back to Module
-        </Link>
-        <h1 className="text-3xl font-bold">{level.title}</h1>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <Link
+            to={`/module/${moduleId}`}
+            className="text-go-blue hover:underline"
+          >
+            ← Back to Module
+          </Link>
+          <h1 className="text-3xl font-bold">{level.title}</h1>
+        </div>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={handlePreviousLevel}
+            disabled={!hasPreviousLevel()}
+            className={`px-4 py-2 rounded-md font-medium ${
+              hasPreviousLevel()
+                ? 'bg-go-blue text-white hover:bg-go-blue-dark'
+                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            ← Previous
+          </button>
+          <button
+            onClick={handleNextLevel}
+            disabled={!hasNextLevel()}
+            className={`px-4 py-2 rounded-md font-medium ${
+              hasNextLevel()
+                ? 'bg-go-blue text-white hover:bg-go-blue-dark'
+                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            Next →
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -176,7 +233,7 @@ function LevelView() {
             <h2 className="text-xl font-semibold mb-4">Learning Materials</h2>
             <div className="prose prose-sm max-w-none">
               <p className="text-gray-600 mb-4">{level.learningMaterials.explanation}</p>
-              
+
               <h3 className="text-lg font-semibold mb-2">Examples</h3>
               <div className="space-y-4">
                 {level.learningMaterials.examples.map((example, index) => (
@@ -190,11 +247,11 @@ function LevelView() {
                         Copy Code
                       </button>
                     </div>
-                      <div className="mb-2">
-                        <pre className="bg-gray-800 text-white p-3 rounded-md text-sm overflow-x-auto">
-                          {example.code}
-                        </pre>
-                      </div>
+                    <div className="mb-2">
+                      <pre className="bg-gray-800 text-white p-3 rounded-md text-sm overflow-x-auto">
+                        {example.code}
+                      </pre>
+                    </div>
                     <p className="text-sm text-gray-600">{example.explanation}</p>
                   </div>
                 ))}
